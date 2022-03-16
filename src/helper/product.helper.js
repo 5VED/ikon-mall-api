@@ -192,9 +192,9 @@ exports.getProductItemsWithFilters = async (payload) => {
     }
 
     // filter by price range
-    if (payload.priceRange) {
-      query['$and'].push({ 'sellerPrice': { '$gt': payload.priceRange.min } });
-      query['$and'].push({ 'sellerPrice': { '$lt': payload.priceRange.max } });
+    if (payload.minPrice && payload.maxPrice) {
+      query['$and'].push({ 'sellerPrice': { '$gt': Number(payload.minPrice) } });
+      query['$and'].push({ 'sellerPrice': { '$lt': Number(payload.maxPrice) } });
     }
 
     //filter by brands
@@ -282,7 +282,7 @@ exports.getProductItemsWithFilters = async (payload) => {
 
 exports.getProductItemsByShopAndCategory = async (params) => {
   const { shopId, categoryId, search, skip, limit, userId } = params;
-  const brands = params.brands ? params.brands.split('-') : [];
+  const brands = params.brands? params.brands : [];
   try {
     const query = [
       {

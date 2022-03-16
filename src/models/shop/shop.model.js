@@ -13,7 +13,10 @@ const locationSchema = new Schema({
 })
 const Shop = mongoose.model( "Shop", new Schema(
     { 
-        shopName: String,
+        shopName: {
+            type: String,
+            required: true
+        },
         desc: String,
         categoryId: [{		  
             type: Schema.Types.ObjectId,
@@ -42,7 +45,10 @@ const Shop = mongoose.model( "Shop", new Schema(
         },
         deletedAt: Date,
         timings: [
-            [Number, Number]
+            // {
+            //     open: Number,
+            //     close: Number
+            // }
         ],
         createdAt: {
             type: Date,

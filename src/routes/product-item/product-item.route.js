@@ -8,7 +8,7 @@ router.post('/', upload.single("file"), productItemController.addProductItemAndP
 router.get('/', productItemController.getProductItemAndProduct);
 router.get('/filters', productItemController.getProductItemWithFilter);
 router.get('/categoryshop', productItemController.getProductItemsByShopAndCategory);
-router.post('/rate', productItemValidator.RateProductItemValidator, productItemController.RateProduct);
+router.post('/rating', productItemValidator.RateProductItemValidator, productItemController.RateProduct);
 router.get('/rating', productItemController.GetProductItemRatingsByProductItemId);
 router.get('/shop', productItemController.GetProductItemsByShop);
 module.exports = router;

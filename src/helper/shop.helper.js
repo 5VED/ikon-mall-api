@@ -11,7 +11,9 @@ exports.addShop = async (payload) => {
             closeTime: payload.closeTime,
             rating: payload.rating,
             isPrimeShop: payload.isPrimeShop,
-            location: { type: 'Point', coordinates: [payload.lng, payload.lat] },
+            location: { type: 'Point', coordinates: [payload.longitude, payload.latitude] },
+            timings: payload.timings,
+            vendorId: payload.vendorId,
             shopImage: req.files.shopImage[0].path,
             shopLogo: req.files.shopLogo[0].path
         });
@@ -154,18 +156,17 @@ exports.getShop = async (params) => {
         }
 
         if (params.lat && params.lng) {
-            aggregateQuery = [
-                ...aggregateQuery,
+            aggregateQuery.unshift(
                 {
                     "$geoNear": {
                         "near": { "type": "Point", "coordinates": [Number(params.lng), Number(params.lat)] },
                         "distanceField": "dist.calculated",
-                        "maxDistance": 5000,
+                        "maxDistance": params.distance ? Number(params.distance) : 5000,
                         "includeLocs": "dist.location",
                         "spherical": true
                     }
                 }
-            ]
+            );
         }
 
         if (params.time) {

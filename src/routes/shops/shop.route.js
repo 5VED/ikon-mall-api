@@ -5,6 +5,7 @@ const imageMiddleware = require('../../middlewares/attachment-middleware');
 const multer = require('multer');
 const upload = multer({storage: imageMiddleware.image.storage(), allowedImage: imageMiddleware.image.allowedImage});
 const shopValidator = require('../../validator/shop.validator');
+const middleware = require("../../middlewares/verifyToken");
 
 
 router.use(function(req, res, next) {
@@ -16,11 +17,10 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', shopController.getShops);
-
-router.post('/', upload.fields([{ name: 'shopImage', maxCount: 1 }, { name: 'shopLogo', maxCount: 1 }]), shopController.AddShop)
-router.post('/rate', shopValidator.RateShopValidator, shopController.RateShop);
+router.post('/', /*upload.fields([{ name: 'shopImage', maxCount: 1 }, { name: 'shopLogo', maxCount: 1 }]),*/ shopController.AddShop)
+router.post('/rating', middleware.verifyToken, shopValidator.RateShopValidator, shopController.RateShop);
 router.get('/rating', shopController.GetShopRatingsByShopId);
-router.put('/', shopController.EditShop);
-router.delete('/', shopController.DeleteShop);
+router.put('/:shopId', shopController.EditShop);
+router.delete('/:shopId', shopController.DeleteShop);
 
 module.exports = router;

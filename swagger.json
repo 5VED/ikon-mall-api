@@ -1,0 +1,1844 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "iKon Mall Backend",
+        "description": "iKon Mall Project Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:5000/api",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for Users"
+        },
+        {
+            "name": "Brands",
+            "description": "API for brands in the system"
+        },
+        {
+            "name": "Cart",
+            "description": "API for shopping cart"
+        },
+        {
+            "name": "Category",
+            "description": "API for category"
+        },
+        {
+            "name": "Product-Item",
+            "description": "API for product-items"
+        },
+        {
+            "name": "Shops",
+            "description": "API for Shops"
+        },
+        {
+            "name": "Wishlist",
+            "description": "API for like/unlike and get liked product-items or shop"
+        },
+        {
+            "name": "Vendor",
+            "description": "API for Vendor"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/brand": {
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Get all brands in system",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "No data found"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/brand/categoryshop": {
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Get all brands by shop and category in system",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "shopId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Shop Id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "categoryId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Category Id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/cart": {
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "add/update product item in shopping cart",
+                "description": "Add product item in shopping cart, Increase/Decrease quantity",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Logged in user's Id, Selected Product-Item Id, Add = true/false for increase/decrease quantity",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item added/updated to cart successfully"
+                    },
+                    "400": {
+                        "description": "A token is required for authentication"
+                    },
+                    "401": {
+                        "description": "Invalid token"
+                    },
+                    "500": {
+                        "description": "Error in adding/updated item to cart"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "removes product item from cart",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/RemoveCart"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item removed from cart successfully"
+                    },
+                    "400": {
+                        "description": "A token is required for authentication"
+                    },
+                    "401": {
+                        "description": "Invalid token"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    },
+                    "500": {
+                        "description": "Error in removing item from cart"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "get cart items for logged-in user",
+                "description": "",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "schema": {
+                            "type": "ObjectId"
+                        },
+                        "description": "Logged in user id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Items not found"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/wishlist": {
+            "get": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Get user's liked product items",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "User Id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    },
+                    "404": {
+                        "description": "No data found"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Add product-item to wishlist",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "wishlist",
+                        "in": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/WishlistProductItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Error in adding item to wishlist"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Unliked Product-item or Shop",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "wishlist",
+                        "in": "body",
+                        "description": "Product-item or Shop id to delete",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/WishlistProductItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Error in unlike Product-item or shop"
+                    }
+                }
+            }
+        },
+        "/category": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "adds a new category",
+                "description": "",
+                "operationId": "addCategory",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Category object that needs to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Category"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "get all categories",
+                "description": "",
+                "operationId": "getCategory",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "type": "integer",
+                        "description": "The number of documents to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "type": "integer",
+                        "description": "The numbers of documents to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Error in getting Category"
+                    }
+                }
+            }
+        },
+        "/category/brand": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "get all brands available in shop, group by categories",
+                "description": "",
+                "operationId": "findBrandsByShopGroupByCategory",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/category/product-items": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Returns Product-items group by category",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "shopId",
+                        "schema": {
+                            "type": "ObjectId"
+                        },
+                        "description": "Shop Id"
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": "Sort value",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "NEWESTFIRST",
+                            "RECOMMENDED",
+                            "POPULARITY"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/vendor": {
+            "get": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "returns all vendors",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Vendor"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "adds a new vendor",
+                "description": "",
+                "operationId": "addVendor",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Vendor object that needs to be added in the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Vendor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/vendor/id": {
+            "get": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "get vendor by id",
+                "description": "",
+                "operationId": "getVendorById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "vendorId",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Vendor"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid vendor id supplied"
+                    },
+                    "404": {
+                        "description": "Vendor not found"
+                    }
+                }
+            }
+        },
+        "/user/signup": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "sign up new user",
+                "description": "",
+                "operationId": "signupUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object that needs to be added to the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Invalid payload"
+                    },
+                    "409": {
+                        "description": "Email address already taken"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "login user",
+                "description": "",
+                "operationId": "loginUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User object that needs to be used for login into the system",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Invalid payload"
+                    },
+                    "401": {
+                        "description": "Invalid Credentials"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/user/verifyotp": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "verifies otp",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OTP"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Invalid OTP"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/user/resetpassword": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "resets password",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "updateUser",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ResetPassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "406": {
+                        "description": "Old password not matched"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/user/address": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "add a new address for user",
+                "description": "",
+                "operationId": "addAddress",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Address object that needs to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Address"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns user addresses",
+                "description": "",
+                "operationId": "getUserAddress",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/user/address/{addressId}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Updated user address",
+                "description": "This can only be done by the logged in user.",
+                "operationId": "updateUserAddress",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "addressId",
+                        "in": "path",
+                        "description": "addressId that need to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated user address object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Address"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user address by ID",
+                "description": "",
+                "operationId": "deleteUserAddress",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "addressId",
+                        "in": "path",
+                        "description": "ID of the address that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/shop": {
+            "get": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "returns shops",
+                "description": "",
+                "operationId": "getShop",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search value for shop, matches Brand, Product, Product Items name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Category Id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Current location latitude",
+                        "type": "float"
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "description": "Current location longitude",
+                        "type": "float"
+                    },
+                    {
+                        "name": "time",
+                        "in": "query",
+                        "description": "Current time in decimal format, eg: 18:00 will be 1800",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "open24hours",
+                        "in": "query",
+                        "description": "To check if shop opens 24/7",
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "Logged-in user id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "shops not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "add a new shop",
+                "description": "",
+                "operationId": "addShop",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Shop object that needs to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Shop"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/shop/{shopId}": {
+            "put": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "Updates shop",
+                "description": "",
+                "operationId": "updateShop",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "path",
+                        "description": "shopId that need to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated shop object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Shop"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid user supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "Delete shop by Id",
+                "description": "",
+                "operationId": "deleteShop",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "path",
+                        "description": "ID of the shop that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Address not found"
+                    }
+                }
+            }
+        },
+        "/shop/rating": {
+            "post": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "Rates shop",
+                "description": "",
+                "operationId": "rateShop",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ShopRating"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Order"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "Find shop rating by ID",
+                "description": "Returns a single shop rating",
+                "operationId": "getShopRatingByShopId",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "query",
+                        "description": "ID of shop to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Shop not found"
+                    }
+                }
+            }
+        },
+        "/product-item": {
+            "post": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "uploads product items",
+                "description": "",
+                "operationId": "uploadProductItems",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file to upload",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/product-item/filters": {
+            "get": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "returns product-items which matches filters",
+                "description": "returns product-items",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shop",
+                        "in": "query",
+                        "description": "shop Id",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "indicates if sorting should be done or not",
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": "sorting options",
+                        "enum": [
+                            "POPULARITY",
+                            "RECOMMENDED",
+                            "LOWTOHIGH",
+                            "HIGHTOLOW",
+                            "NEWESTFIRST"
+                        ],
+                        "type": "string"
+                    },
+                    {
+                        "name": "minPrice",
+                        "in": "query",
+                        "description": "Minimum Price",
+                        "type": "number"
+                    },
+                    {
+                        "name": "maxPrice",
+                        "in": "query",
+                        "description": "Maximum Price",
+                        "type": "number"
+                    },
+                    {
+                        "name": "brands",
+                        "in": "query",
+                        "description": "Brand Id/s",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "61f51a15f5d7c2b1f632cb04",
+                                "61f51a26f5d7c2b1f632cb05",
+                                "6202582a38c3cd30cd98bea3"
+                            ]
+                        },
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "keywords",
+                        "type": "string"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "logged-in user's id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    }
+                }
+            }
+        },
+        "/product-item/categoryshop": {
+            "get": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "get product items group by category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "query",
+                        "description": "Shop Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value for Product Items name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "categoryId",
+                        "in": "query",
+                        "description": "Category Id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "Logged-in user id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "brands",
+                        "in": "query",
+                        "description": "Brand Id/s",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "61f51a15f5d7c2b1f632cb04",
+                                "61f51a26f5d7c2b1f632cb05",
+                                "6202582a38c3cd30cd98bea3"
+                            ]
+                        },
+                        "collectionFormat": "multi"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    }
+                }
+            }
+        },
+        "/product-item/shop": {
+            "get": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "returns product items by shop group by category",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "required": true,
+                        "type": "integer",
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "name": "shopId",
+                        "in": "query",
+                        "description": "Shop Id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "Logged-in user id",
+                        "type": "string"
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": "sorting options",
+                        "enum": [
+                            "POPULARITY",
+                            "RECOMMENDED",
+                            "NEWESTFIRST"
+                        ],
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    }
+                }
+            }
+        },
+        "/product-item/rating": {
+            "post": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "Rates product item",
+                "description": "",
+                "operationId": "rateProductItem",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ProductItemRating"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid Product Item Id"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "Find product rating rating by ID",
+                "description": "Returns a single product rating",
+                "operationId": "getProductRatingById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "productItemId",
+                        "in": "query",
+                        "description": "ID of product-item to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Product Item not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Brand": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "richDescription": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                }
+            }
+        },
+        "Cart": {
+            "required": [
+                "userId",
+                "productItemId",
+                "add"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "string",
+                    "example": "620f3fed199444f7bc02a143"
+                },
+                "productItemId": {
+                    "type": "string",
+                    "example": "620ccebf672a910fcf97ec2f"
+                },
+                "add": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "RemoveCart": {
+            "required": [
+                "userId",
+                "productItemId"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "ObjectId"
+                },
+                "productItemId": {
+                    "type": "ObjectId"
+                }
+            }
+        },
+        "WishlistProductItem": {
+            "required": [
+                "userId",
+                "productItemId",
+                "type"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "string",
+                    "example": "620f3fed199444f7bc02a143"
+                },
+                "productItemId": {
+                    "type": "string",
+                    "example": "620ccebf672a910fcf97ec2f"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "PRODUCT"
+                }
+            }
+        },
+        "WishlistShop": {
+            "required": [
+                "userId",
+                "shopId",
+                "type"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "string",
+                    "example": "620f3fed199444f7bc02a143"
+                },
+                "shopId": {
+                    "type": "string",
+                    "example": "620ccebf672a910fcf97ec2f"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "SHOP"
+                }
+            }
+        },
+        "Category": {
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Electronics"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "A category for electronics items"
+                },
+                "richDescription": {
+                    "type": "string"
+                }
+            }
+        },
+        "Vendor": {
+            "required": [
+                "firstName",
+                "lastName"
+            ],
+            "properties": {
+                "firstName": {
+                    "type": "string",
+                    "exapmle": "John"
+                },
+                "lastName": {
+                    "type": "string",
+                    "exapmle": "Doe"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@mail.com"
+                }
+            }
+        },
+        "User": {
+            "required": [
+                "username",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "example": "johndoe"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@mail.com"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Login": {
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@mail.com"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "OTP": {
+            "required": [
+                "email",
+                "otp"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@mail.com"
+                },
+                "otp": {
+                    "type": "number",
+                    "example": 123456
+                }
+            }
+        },
+        "ResetPassword": {
+            "required": [
+                "email",
+                "oldPassword",
+                "newPassword"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@mail.com"
+                },
+                "oldPassword": {
+                    "type": "string"
+                },
+                "newPassword": {
+                    "type": "string"
+                }
+            }
+        },
+        "Shop": {
+            "required": [
+                "shopName",
+                "categoryId",
+                "latitude",
+                "longitude",
+                "vendorId"
+            ],
+            "properties": {
+                "shopName": {
+                    "type": "string",
+                    "example": "Kohinoor Fashion"
+                },
+                "categoryId": {
+                    "type": "string",
+                    "example": "620257fb38c3cd30cd98bea2"
+                },
+                "latitude": {
+                    "type": "number",
+                    "example": 21.1512
+                },
+                "longitude": {
+                    "type": "number",
+                    "example": 72.7978
+                },
+                "vendorId": {
+                    "type": "string",
+                    "example": "61fe18829af8fd2eab57d7a1"
+                }
+            }
+        },
+        "Address": {
+            "required": [
+                "addressName",
+                "addressLine1",
+                "zipcode",
+                "userId",
+                "latitude",
+                "longitude"
+            ],
+            "properties": {
+                "addressName": {
+                    "type": "string"
+                },
+                "addressLine1": {
+                    "type": "string"
+                },
+                "addressLine2": {
+                    "type": "string"
+                },
+                "zipcode": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "longitude": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "ShopRating": {
+            "required": [
+                "shopId",
+                "userId",
+                "star"
+            ],
+            "properties": {
+                "shopId": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "star": {
+                    "type": "integer",
+                    "format": "int16"
+                }
+            }
+        },
+        "ProductItemRating": {
+            "required": [
+                "productItemId",
+                "userId",
+                "star"
+            ],
+            "properties": {
+                "productItemId": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "star": {
+                    "type": "integer",
+                    "format": "int16"
+                }
+            }
+        }
+    }
+}

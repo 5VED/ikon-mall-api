@@ -30,7 +30,12 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     deletedAt: Date,
-    updatedAt: Date
+    updatedAt: Date,
+    otp: Number,
+    verified: {
+        type: mongoose.Schema.Types.Boolean,
+        default: false
+    }
 }, { versionKey: false });
 
 UserSchema.pre('save', function (next) {

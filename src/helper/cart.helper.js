@@ -32,9 +32,9 @@ exports.addToCart = async (payload) => {
 
 exports.removeFromCart = async (payload) => {
     try {
-        const filter = { 'userId': payload.userId };
+        const filter = { 'userId': payload.userId, "productItems.productItemId": payload.productItemId };
         const update = { '$pull': { 'productItems': { 'productItemId': payload.productItemId }}}
-        const result = await Cart.findOneAndUpdate(filter, update);
+        const result = await Cart.updateOne(filter, update);
         //remove document if product item is empty
         await Cart.deleteOne({ 'userId': payload.userId, 'productItems': { '$size': 0 }});
         return result;

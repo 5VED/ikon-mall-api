@@ -17,21 +17,20 @@ router.use(function(req, res, next) {
 
 // Retrieve all user
 router.get('/all_users',verifyToken, userController.getAllUsers);
-
 router.post('/signupwithphone',userController.signupWithPhoneOtp)
-
 router.post('/loginwithphone',userController.loginWithPhoneOtp)
-
 router.post('/verifyphoneotp',userController.verifyPhoneOtp)
-
 router.put('/updateuser',userController.updateUser)
-
 router.post('/authentication', userController.auth );
+
+// created by vishal
+router.post('/signup', userValidator.SignUpValidator, userController.Signup);
+router.post('/login', userValidator.LoginValidator, userController.Login);
+router.post('/verifyotp', userController.VerifyOtp);
+router.put('/resetpassword', middleware.verifyToken, userController.ChangePassword);
 router.post('/address', middleware.verifyToken, userController.AddUserAddress);
 router.delete('/address/:addressId', middleware.verifyToken, userController.DeleteAddress);
 router.put('/address/:addressId', middleware.verifyToken, userController.UpdateAddress);
 router.get('/address', middleware.verifyToken, userController.GetAllAddress);
-router.post('/signup', userValidator.SignUpValidator, userController.Signup);
-router.post('/login', userValidator.LoginValidator, userController.Login);
 
 module.exports = router

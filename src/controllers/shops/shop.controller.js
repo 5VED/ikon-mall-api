@@ -55,7 +55,7 @@ exports.GetShopRatingsByShopId = async (req, res) => {
 exports.EditShop = async (req, res) => {
     try {
         const shop = req.body.shop;
-        const shopId = req.body.shopId;
+        const shopId = req.params.shopId;
         const result = await shopHelper.editShop(shopId, shop);
         logger.log("info", "Shop updated successfully");
         return res.status(StatusCodes.OK).send({
@@ -73,7 +73,7 @@ exports.EditShop = async (req, res) => {
 
 exports.DeleteShop = async (req, res) => {
     try {
-        const shopId = req.body.shopId;
+        const shopId = req.params.shopId;
         const result = await shopHelper.deleteShop(shopId);
         logger.log("info", "Shop deleted successfully");
         return res.status(StatusCodes.OK).send({

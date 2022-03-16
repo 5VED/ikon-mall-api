@@ -41,6 +41,13 @@ exports.RemoveFromWishlist = async (req, res) => {
 exports.GetWishlist = async (req, res) => {
   try {
     const result = await wishlistHelper.getWishlist(req.query.userId);
+    if (result.length === 0) {
+      logger.log("warn", "No data found");
+      return res.status(StatusCodes.NOT_FOUND).json({
+        data: [],
+        message: 'No data found for wishlist'
+      })
+    }
     logger.log("info", "Wishlist fetched successfully");
     return res.status(StatusCodes.OK).send({
       data: result,

@@ -285,7 +285,7 @@ exports.Login = async (req, res) => {
       });
     }
     logger.log("warn", "Invalid credentials");
-    return res.status(StatusCodes.BAD_REQUEST).json({
+    return res.status(StatusCodes.UNAUTHORIZED).json({
       token: result.token,
       message: result.message
     });
@@ -295,5 +295,51 @@ exports.Login = async (req, res) => {
       error: error.message,
       message: 'Error in login'
     });
+  }
+}
+
+exports.ChangePassword = async (req, res) => {
+  try {
+    const payload = req.body;
+    const result = await userHelper.changePassword(payload);
+    if (result.changed) {
+      return res.status(StatusCodes.OK).json({
+        data: result,
+        message: 'Password changed successfully'
+      });
+    }
+    return res.status(StatusCodes.NOT_ACCEPTABLE).json({
+      data: result,
+      message: 'Old password is not matched'
+    });
+  } catch (error) {
+    logger.log("error", `Error in changing password:: ${error.message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+      message: "Error in changing password"
+    });
+  }
+}
+
+exports.VerifyOtp = async (req, res) => {
+  try {
+    const payload = req.body;
+    const result = await userHelper.verifyOtp(payload);
+    if (result.verified) {
+      return res.status(StatusCodes.OK).json({
+        data: result,
+        message: result.message
+      });
+    }
+    return res.status(StatusCodes.NOT_FOUND).json({
+      data: result,
+      message: result.message
+    });
+  } catch (error) {
+    logger.log("error", `error in verifying OTP:: ${error.message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+      message: "Error in verifying OTP"
+    })
   }
 }
