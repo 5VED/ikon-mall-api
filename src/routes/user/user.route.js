@@ -13,15 +13,6 @@ router.use(function(req, res, next) {
     next();
   });
 
-// Retrieve all user
-router.get('/all_users', userController.getAllUsers);
-router.post('/signupwithphone',userController.signupWithPhoneOtp)
-router.post('/loginwithphone',userController.loginWithPhoneOtp)
-router.post('/verifyphoneotp',userController.verifyPhoneOtp)
-router.put('/updateuser',userController.updateUser)
-router.post('/authentication', userController.auth );
-
-// created by vishal
 router.post('/signup', userValidator.SignUpValidator, userController.Signup);
 router.post('/login', userValidator.LoginValidator, userController.Login);
 router.post('/verifyotp', userController.VerifyOtp);

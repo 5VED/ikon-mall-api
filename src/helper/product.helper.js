@@ -22,7 +22,7 @@ exports.processDataForUpload = async (data) => {
         }
 
         //check if brand exist
-        const brand = brands.find(brand => brand.name === item.Brand.toLowerCase());
+        const brand = brands.find(brandElem => brandElem.name === item.Brand.toLowerCase());
         if (!brand) {
           const newBrand = await brandHelper.addBrand(item.Brand);
           brands.push({ _id: newBrand._id, name: newBrand.name.toLowerCase() });
@@ -30,14 +30,14 @@ exports.processDataForUpload = async (data) => {
 
         //check if product exist
         const categoryId = category ? category._id : categories.find(el => el.name === item.Category.toLowerCase())._id;
-        const product = products.find(product => product.name === item.ProductName.toLowerCase() && product.category.toString() === categoryId.toString());
+        const product = products.find(productEl => productEl.name === item.ProductName.toLowerCase() && productEl.category.toString() === categoryId.toString());
         if (!product) {
           const newProduct = await this.addProduct(item.ProductName, categoryId);
           products.push({ _id: newProduct._id, name: newProduct.name.toLowerCase(), category: categoryId });
         }
 
         const brandId = brand ? brand._id : brands.find(el => el.name === item.Brand.toLowerCase())._id;
-        const productId = product ? product._id : products.find(product => product.name === item.ProductName.toLowerCase() && product.category.toString() === categoryId.toString())._id;
+        const productId = product ? product._id : products.find(productElement => productElement.name === item.ProductName.toLowerCase() && productElement.category.toString() === categoryId.toString())._id;
         const productItem = await ProductItem.findOne(
           {
             color: item.Color,
