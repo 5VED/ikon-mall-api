@@ -3,18 +3,17 @@ const mongoose = require('mongoose');
 
 exports.addToCart = async (payload) => {
     try {
-        const filter = { 'userId': payload.userId, 'productItems.productItemId': payload.productItemId };
+        const filter = { 'userId': payload.userId.toString(), 'productItems.productItemId': payload.productItemId.toString() };
         const itemInCart = await Cart.findOne(filter).lean();
         if(itemInCart) {
             const update = {
                 '$inc': { 'productItems.$.quantity': payload.add ? +1 : -1 },
                 '$set': { 'productItems.$.modifiedAt': Date.now() }
             };
-            const result = await Cart.findOneAndUpdate(filter, update);
-            return result;
+            return await Cart.findOneAndUpdate(filter, update);
         } else {
-            const result = await Cart.findOneAndUpdate(
-                { userId: payload.userId },
+            return await Cart.findOneAndUpdate(
+                { userId: payload.userId.toString() },
                 { $push: { 
                     productItems: { productItemId: payload.productItemId, quantity: 1 }
                 }},
@@ -23,7 +22,6 @@ exports.addToCart = async (payload) => {
                     'upsert': true
                 }
             );
-            return result;
         }
     } catch (error) {
         throw error;
@@ -32,7 +30,7 @@ exports.addToCart = async (payload) => {
 
 exports.removeFromCart = async (payload) => {
     try {
-        const filter = { 'userId': payload.userId, "productItems.productItemId": payload.productItemId };
+        const filter = { 'userId': payload.userId.toString(), "productItems.productItemId": payload.productItemId.toString() };
         const update = { '$pull': { 'productItems': { 'productItemId': payload.productItemId }}}
         const result = await Cart.updateOne(filter, update);
         //remove document if product item is empty
@@ -125,8 +123,7 @@ exports.getCartItems = async(userId) => {
                 }
             }
         ];
-        const cartItems = await Cart.aggregate(query).exec();
-        return cartItems;
+        return await Cart.aggregate(query).exec();
     } catch (error) {
         throw error;
     }

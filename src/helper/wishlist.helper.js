@@ -4,15 +4,14 @@ const { PRODUCT } = require('../../lib/constant');
 
 exports.addToWishlist = async (payload) => {
     try {
-        const filter = { 'userId': payload.userId };
+        const filter = { 'userId': payload.userId.toString() };
         const update = {
             "$push": payload.type === PRODUCT 
-            ? { 'likedItems': { productItemId: payload.productItemId }}
-            : { 'likedShops': { shop: payload.shopId }},
+            ? { 'likedItems': { productItemId: payload.productItemId.toString() }}
+            : { 'likedShops': { shop: payload.shopId.toString() }},
             "$set": { 'modifiedAt': Date.now() }
         };
-        const result = await Wishlist.findOneAndUpdate(filter, update, { new: true, upsert: true});
-        return result;
+        return await Wishlist.findOneAndUpdate(filter, update, { new: true, upsert: true});
     } catch (error) {
         throw error;
     }
@@ -20,7 +19,7 @@ exports.addToWishlist = async (payload) => {
 
 exports.removeFromWishlist = async (payload) => {
     try {
-        const filter = { 'userId': payload.userId };
+        const filter = { 'userId': payload.userId.toString() };
         const update = { 
             '$pull': payload.type === PRODUCT 
             ? { 'likedItems': { productItemId: payload.productItemId }}
@@ -29,7 +28,7 @@ exports.removeFromWishlist = async (payload) => {
         };
         const result = await Wishlist.findOneAndUpdate(filter, update, { new: true, upsert: true});
         if (result.likedItems.length === 0 && result.likedShops.length === 0) {
-            await Wishlist.deleteOne({ userId: payload.userId });
+            await Wishlist.deleteOne({ userId: payload.userId.toString() });
         }
         return result;
     } catch (error) {
@@ -39,7 +38,7 @@ exports.removeFromWishlist = async (payload) => {
 
 exports.getWishlist = async (userId) => {
     try {
-        const wishlist = await Wishlist.aggregate([
+        return await Wishlist.aggregate([
             { 
                 '$match': { userId: ObjectId(userId) }
             },
@@ -57,7 +56,6 @@ exports.getWishlist = async (userId) => {
                 }
             }
         ]).exec();
-        return wishlist;
     } catch (error) {
         throw  error
     }

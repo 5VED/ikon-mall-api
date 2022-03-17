@@ -30,7 +30,7 @@ exports.saveAddress = async (payload) => {
 exports.deleteAddress = async (addressId) => {
     try {
         const result = await Address.findByIdAndUpdate(
-            addressId,
+            addressId.toString(),
             {
                 $set: {
                     deleted: true,
@@ -61,8 +61,7 @@ exports.updateAddress = async  (addressId, payload) => {
 
 exports.getAllAddress = async (userId, skip, limit) => {
     try {
-        const addresses = await Address.find({ deleted: false, userId: userId}).skip(skip).limit(limit).exec();
-        return addresses;
+        return await Address.find({ deleted: false, userId: userId.toString()}).skip(skip).limit(limit).exec();
     } catch (error) {
         throw error;
     }

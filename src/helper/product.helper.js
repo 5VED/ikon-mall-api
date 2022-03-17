@@ -406,7 +406,7 @@ exports.rateProduct = async (payload) => {
       }
     }
     const result = await ProductRating.findOneAndUpdate(
-      { productItemId: productItemId },
+      { productItemId: productItemId.toString() },
       { '$push': rating },
       { 'upsert': true }
     ).exec();
