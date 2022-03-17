@@ -54,7 +54,7 @@ exports.AddCategory = async (req, res) => {
         });
     } catch (error) {
         logger.log("error", `Error in adding category:: ${error.message}`);
-        res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
             error: error.message,
             message: 'Error in adding category'
         });

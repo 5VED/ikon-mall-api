@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../../controllers/user/user.controller');
 const userValidator = require('../../validator/user.validator');
-const { checkDuplicateUsernameOrEmail, checkRolesExisted } = require('../../middlewares/verifySignUp');
-const { verifyToken } = require('../../middlewares/authJwt');
 const middleware = require('../../middlewares/verifyToken');
 
 // Create user
@@ -16,7 +14,7 @@ router.use(function(req, res, next) {
   });
 
 // Retrieve all user
-router.get('/all_users',verifyToken, userController.getAllUsers);
+router.get('/all_users', userController.getAllUsers);
 router.post('/signupwithphone',userController.signupWithPhoneOtp)
 router.post('/loginwithphone',userController.loginWithPhoneOtp)
 router.post('/verifyphoneotp',userController.verifyPhoneOtp)
