@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const { TOKEN_KEY } = require("../../lib/constant");
-const { responseGenerators, decryptFn } = require('../../lib/utils')
 const { StatusCodes } = require('http-status-codes')
 const logger = require('../../lib/logger')
 
