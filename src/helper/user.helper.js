@@ -15,140 +15,110 @@ exports.saveAddress = async (payload) => {
         city: payload.city,
         state: payload.state,
         country: payload.country,
-        location: { type: 'Point', coordinates: [payload.longitude, payload.latitude]},
+        location: { type: 'Point', coordinates: [payload.longitude, payload.latitude] },
         userId: payload.userId
     });
     const error = await address.validate();
     if (error) {
         throw error;
     } else {
-        const doc = await address.save();
-        return doc;
+        return address.save();
     }
 }
 
 exports.deleteAddress = async (addressId) => {
-    try {
-        const result = await Address.findByIdAndUpdate(
-            addressId.toString(),
-            {
-                $set: {
-                    deleted: true,
-                    deletedAt: Date.now()
-                }
+    return Address.findByIdAndUpdate(
+        addressId.toString(),
+        {
+            $set: {
+                deleted: true,
+                deletedAt: Date.now()
             }
-        );
-        return result;
-    } catch (error) {
-        throw error;
-    }
+        }
+    );
 }
 
-exports.updateAddress = async  (addressId, payload) => {
-    try {
-        payload = {...payload, updatedAt: Date.now()};
-        const result = await  Address.findByIdAndUpdate(
-            addressId,
-            {
-                $set: payload
-            }
-        )
-        return result
-    } catch (error) {
-        throw error;
-    }
+exports.updateAddress = async (addressId, payload) => {
+    payload = { ...payload, updatedAt: Date.now() };
+    return Address.findByIdAndUpdate(
+        addressId,
+        {
+            $set: payload
+        }
+    );
 }
 
 exports.getAllAddress = async (userId, skip, limit) => {
-    try {
-        return await Address.find({ deleted: false, userId: userId.toString()}).skip(skip).limit(limit).exec();
-    } catch (error) {
-        throw error;
-    }
+    return Address.find({ deleted: false, userId: userId.toString() }).skip(skip).limit(limit).exec();
 }
 
 exports.signup = async (payload) => {
-    try {
-        const { username, email, password } = payload;
-        const isUserExists = await User.findOne({email: email.toString().toLowerCase()});
-        if (isUserExists) {
-            return { userExists: true };
-        }
-        const newUser = new User({
-            username: username,
-            email: email.toLowerCase(),
-            password: password,
-            role: USER,
-            otp: generateOTP()
-        });
-        const user = await newUser.save();
-        return user;
-    } catch (error) {
-        throw error;
+    const { username, email, password } = payload;
+    const isUserExists = await User.findOne({ email: email.toString().toLowerCase() });
+    if (isUserExists) {
+        return { userExists: true };
     }
+    const newUser = new User({
+        username: username,
+        email: email.toLowerCase(),
+        password: password,
+        role: USER,
+        otp: generateOTP()
+    });
+    return newUser.save();
 }
 
 exports.login = async (payload) => {
-    try {
-        const { email, password } = payload;
-        const user = await User.findOne({ email: email.toString().toLowerCase()});
-        if(user && bcrypt.compareSync(password, user.password)) {
-            const token = jwt.sign({ email: user.email}, TOKEN_KEY, { expiresIn: "24h" });
-            const newToken = new Token({
-                user: user._id,
-                email: user.email,
-                token: token
-            });
-            await newToken.save();
-            return { login: true, token: token, message: 'Login successful'};
-        }
-        return { login: false, token: null, message: 'Invalid crentials'};
-    } catch (error) {
-        throw error;
+    const { email, password } = payload;
+    const user = await User.findOne({ email: email.toString().toLowerCase() });
+    if (user && bcrypt.compareSync(password, user.password)) {
+        const token = jwt.sign({ email: user.email }, TOKEN_KEY, { expiresIn: "24h" });
+        const newToken = new Token({
+            user: user._id,
+            email: user.email,
+            token: token
+        });
+        await newToken.save();
+        return { login: true, token: token, message: 'Login successful' };
     }
+    return { login: false, token: null, message: 'Invalid crentials' };
 }
 
 exports.changePassword = async (payload) => {
-    try {
-        const { email, oldPassword, newPassword } = payload;
-        const user = await User.findOne({ email: email.toString().toLowerCase() }).lean();
-        if ( user && bcrypt.compareSync(oldPassword, user.password)) {
-            await User.findByIdAndUpdate(
-                user._id,
-                { $set: { 
-                    password: bcrypt.hashSync(newPassword, 10),
-                    updatedAt: Date.now()
-                }}
-            );
-            return { changed: true, message: 'Password changed successfully'};
-        }
-        return { changed: false, message: 'Old password does not match'};
-    } catch (error) {
-        throw error;
-    }
-}
-
-exports.verifyOtp = async (payload) => {
-    try {
-        const  { email, otp } = payload;
-        const user = await User.updateOne(
-            {
-                email: email.toString().toLowerCase(),
-                otp: otp
-            },
+    const { email, oldPassword, newPassword } = payload;
+    const user = await User.findOne({ email: email.toString().toLowerCase() }).lean();
+    if (user && bcrypt.compareSync(oldPassword, user.password)) {
+        await User.findByIdAndUpdate(
+            user._id,
             {
                 $set: {
-                    otp: null,
-                    verified: true,
+                    password: bcrypt.hashSync(newPassword, 10),
                     updatedAt: Date.now()
                 }
             }
         );
-        if (user.modifiedCount === 1) {
-            return { verified: true, message: 'User verification successful'}
-        }
-        return { verified: false, message: 'User not verified'};
-    } catch (error) {
-        throw error;
+        return { changed: true, message: 'Password changed successfully' };
     }
+    return { changed: false, message: 'Old password does not match' };
+}
+
+exports.verifyOtp = async (payload) => {
+    const { email, otp } = payload;
+    const user = await User.updateOne(
+        {
+            email: email.toString().toLowerCase(),
+            otp: otp
+        },
+        {
+            $set: {
+                otp: null,
+                verified: true,
+                updatedAt: Date.now()
+            }
+        }
+    );
+    if (user.modifiedCount === 1) {
+        return { verified: true, message: 'User verification successful' }
+    }
+    return { verified: false, message: 'User not verified' };
 }
