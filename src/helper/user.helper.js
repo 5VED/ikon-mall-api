@@ -70,7 +70,7 @@ exports.getAllAddress = async (userId, skip, limit) => {
 exports.signup = async (payload) => {
     try {
         const { username, email, password } = payload;
-        const isUserExists = await User.findOne({email: email});
+        const isUserExists = await User.findOne({email: email.toString().toLowerCase()});
         if (isUserExists) {
             return { userExists: true };
         }
@@ -91,7 +91,7 @@ exports.signup = async (payload) => {
 exports.login = async (payload) => {
     try {
         const { email, password } = payload;
-        const user = await User.findOne({ email: email});
+        const user = await User.findOne({ email: email.toString().toLowerCase()});
         if(user && bcrypt.compareSync(password, user.password)) {
             const token = jwt.sign({ email: user.email}, TOKEN_KEY, { expiresIn: "24h" });
             const newToken = new Token({
@@ -111,7 +111,7 @@ exports.login = async (payload) => {
 exports.changePassword = async (payload) => {
     try {
         const { email, oldPassword, newPassword } = payload;
-        const user = await User.findOne({ email: email }).lean();
+        const user = await User.findOne({ email: email.toString().toLowerCase() }).lean();
         if ( user && bcrypt.compareSync(oldPassword, user.password)) {
             await User.findByIdAndUpdate(
                 user._id,
@@ -133,7 +133,7 @@ exports.verifyOtp = async (payload) => {
         const  { email, otp } = payload;
         const user = await User.updateOne(
             {
-                email: email,
+                email: email.toString().toLowerCase(),
                 otp: otp
             },
             {
