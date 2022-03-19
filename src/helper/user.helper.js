@@ -3,6 +3,7 @@ const { USER, TOKEN_KEY } = require("../../lib/constant");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { generateOTP } = require("../../lib/utils");
+const { ObjectId } = require('mongoose').Types
 
 
 exports.saveAddress = async (payload) => {
@@ -27,8 +28,8 @@ exports.saveAddress = async (payload) => {
 }
 
 exports.deleteAddress = async (addressId) => {
-    return Address.findByIdAndUpdate(
-        addressId.toString(),
+    return Address.updateOne(
+        { _id: ObjectId(addressId.toString()), deleted: false },
         {
             $set: {
                 deleted: true,
@@ -40,8 +41,8 @@ exports.deleteAddress = async (addressId) => {
 
 exports.updateAddress = async (addressId, payload) => {
     payload = { ...payload, updatedAt: Date.now() };
-    return Address.findByIdAndUpdate(
-        addressId,
+    return Address.updateOne(
+        { _id: ObjectId(addressId.toString()), deleted: false },
         {
             $set: payload
         }
@@ -70,7 +71,7 @@ exports.signup = async (payload) => {
 
 exports.login = async (payload) => {
     const { email, password } = payload;
-    const user = await User.findOne({ email: email.toString().toLowerCase() });
+    const user = await User.findOne({ email: email.toString().toLowerCase(), deleted: false });
     if (user && bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign({ email: user.email }, TOKEN_KEY, { expiresIn: "24h" });
         const newToken = new Token({
@@ -88,8 +89,8 @@ exports.changePassword = async (payload) => {
     const { email, oldPassword, newPassword } = payload;
     const user = await User.findOne({ email: email.toString().toLowerCase() }).lean();
     if (user && bcrypt.compareSync(oldPassword, user.password)) {
-        await User.findByIdAndUpdate(
-            user._id,
+        return User.updateOne(
+            { _id: user._id },
             {
                 $set: {
                     password: bcrypt.hashSync(newPassword, 10),
@@ -97,9 +98,8 @@ exports.changePassword = async (payload) => {
                 }
             }
         );
-        return { changed: true, message: 'Password changed successfully' };
     }
-    return { changed: false, message: 'Old password does not match' };
+    return user;
 }
 
 exports.verifyOtp = async (payload) => {

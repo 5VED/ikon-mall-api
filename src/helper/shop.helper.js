@@ -322,7 +322,7 @@ exports.getShopRatingsByShopId = async (shopId) => {
 }
 
 exports.editShop = async (shopId, shop) => {
-    return Shop.findOneAndUpdate(
+    return Shop.updateOne(
         { _id: ObjectId(shopId) },
         {
             $set: {
@@ -334,10 +334,13 @@ exports.editShop = async (shopId, shop) => {
 }
 
 exports.deleteShop = async (shopId) => {
-    return Shop.findByIdAndUpdate(shopId, {
-        $set: {
-            deleted: true,
-            deletedAt: Date.now()
+    return Shop.updateOne(
+        { _id: ObjectId(shopId.toString()) },
+        {
+            $set: {
+                deleted: true,
+                deletedAt: Date.now()
+            }
         }
-    });
+    ).exec();
 }
