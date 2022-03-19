@@ -34,7 +34,7 @@ exports.removeFromCart = async (payload) => {
         const update = { '$pull': { 'productItems': { 'productItemId': payload.productItemId }}}
         const result = await Cart.updateOne(filter, update);
         //remove document if product item is empty
-        await Cart.deleteOne({ 'userId': payload.userId, 'productItems': { '$size': 0 }});
+        await Cart.deleteOne({ 'userId': payload.userId.toString(), 'productItems': { '$size': 0 }});
         return result;
     } catch (error) {
         throw error;

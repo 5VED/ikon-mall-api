@@ -326,7 +326,7 @@ exports.rateShop = async (payload) => {
             }
         }
         const result = await ShopRating.findOneAndUpdate(
-            { shopId: shopId },
+            { shopId: shopId.toString() },
             { '$push': rating },
             { 'upsert': true }
         ).exec();
