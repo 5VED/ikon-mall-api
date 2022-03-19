@@ -24,10 +24,5 @@ exports.getAllVendors = async(skip, limit) => {
 }
 
 exports.getVendorById = async(vendorId) => {
-    try {
-        const result = await Vendor.findById(vendorId);
-        return result;
-    } catch (error) {
-        throw error;
-    }
+    return Vendor.findById(vendorId);
 }
