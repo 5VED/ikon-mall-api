@@ -46,6 +46,15 @@ exports.getProductItemAndProduct = async (req, res) => {
   });
 };
 
+exports.getProductItemAndProductById = async (req, res) => {
+  
+  const data = await productHelper.getProductItemAndProductById(req.params.id);
+  res.status(statusCodes.OK).send({
+    message: "Product Item detail fetched successfully!",
+    data: data,
+  });
+};
+
 exports.getProductItemWithFilter = async (req, res) => {
   try {
     const result = await productHelper.getProductItemsWithFilters(req.query);

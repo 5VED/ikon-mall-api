@@ -97,6 +97,144 @@ exports.addProduct = async (productName, categoryId) => {
   return product.save();
 };
 
+exports.getProductItemAndProductById = async (id) => {
+  let productItem = await ProductItem.aggregate([
+    {
+      $lookup: {
+        from: "products",
+        localField: "product",
+        foreignField: "_id",
+        as: "product_info",
+      },
+    },
+    {
+      $unwind: "$product_info",
+    },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "product_info.category",
+        foreignField: "_id",
+        as: "categories_info",
+      },
+    },
+    {
+      $unwind: "$categories_info",
+    },
+    {
+      $lookup: {
+        from: "brands",
+        localField: "brand",
+        foreignField: "_id",
+        as: "brand_info",
+      },
+    },
+    {
+      $unwind: "$brand_info",
+    },
+    {
+      $lookup: {
+        from: "productratings",
+        localField: "_id",
+        foreignField: "productItemId",
+        pipeline: [
+
+          {
+            $lookup: {
+              from: 'users',
+              localField: '5.userId',
+              foreignField: '_id',
+              as: 'fiveStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '4.userId',
+              foreignField: '_id',
+              as: 'fourStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '3.userId',
+              foreignField: '_id',
+              as: 'threeStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '2.userId',
+              foreignField: '_id',
+              as: 'twoStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '1.userId',
+              foreignField: '_id',
+              as: 'oneStar'
+            }
+          },
+        ],
+        as: "review_info",
+      },
+    },
+    {
+      $unwind: "$review_info",
+    },
+    { $match: { _id: ObjectId(id) } }
+  ]).limit(1);
+
+
+  productItem = productItem.map((item) => {
+    item.images = item.images.map((element) => {
+      element =
+        "https://icon-mall.herokuapp.com/uploads/products/" +
+        item.product +
+        "/" +
+        item._id +
+        "/" +
+        element;
+      return element;
+    });
+
+    item.review_info["1"].map((element, index) => {
+      element.user  = item.review_info["oneStar"][index];
+      return element
+    });
+    item.review_info["2"].map((element, index) => {
+      element.user  = item.review_info["twoStar"][index];
+      return element
+    });
+    item.review_info["3"].map((element, index) => {
+      element.user  = item.review_info["threeStar"][index];
+      return element
+    });
+    item.review_info["4"].map((element, index) => {
+      element.user  = item.review_info["fourStar"][index];
+      return element
+    });
+    item.review_info["5"].map((element, index) => {
+      element.user  = item.review_info["fiveStar"][index];
+      return element
+    });
+    delete item.review_info["oneStar"];
+    delete item.review_info["twoStar"];
+    delete item.review_info["threeStar"];
+    delete item.review_info["fourStar"];
+    delete item.review_info["fiveStar"];
+    return item;
+  });
+
+
+
+  return productItem;
+};
+
 exports.getProductItemAndProduct = async () => {
   let productItem = await ProductItem.aggregate([
     {
