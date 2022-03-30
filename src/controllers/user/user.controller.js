@@ -92,7 +92,7 @@ exports.Signup = async (req, res) => {
   try {
     const payload = req.body;
     const result = await userHelper.signup(payload);
-    if(result?.userExists) {
+    if(result['userExists']) {
       logger.warn("Email address already taken");
       return res.status(StatusCodes.CONFLICT).json({
         data: result,
@@ -142,7 +142,7 @@ exports.ChangePassword = async (req, res) => {
   try {
     const payload = req.body;
     const result = await userHelper.changePassword(payload);
-    if (result?.matchedCount && result?.modifiedCount) {
+    if (result['matchedCount'] && result['modifiedCount']) {
       logger.info("password changed successfully");
       return res.status(StatusCodes.OK).json({
         data: result,
