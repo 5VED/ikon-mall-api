@@ -1541,6 +1541,25 @@
                 }
             }
         },
+        "Order": {
+            "required": [
+                "paymentMethod"
+            ],
+            "properties": {
+                "orderNumber": {
+                    "type": "Number"
+                },
+                "orderTotal": {
+                    "type": "Number"
+                },
+                "paymentMethod": {
+                    "type": "string"
+                },
+                "orderStatus": {
+                    "type": "string"
+                }
+            }
+        },
         "Cart": {
             "required": [
                 "userId",

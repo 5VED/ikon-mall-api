@@ -25,6 +25,10 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    shopId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Shop'
+    },
     orderStatus: {
         type: String,
         enum: ['pending', 'in progress', 'completed', 'canceled', 'rejected']

@@ -344,3 +344,4 @@ exports.deleteShop = async (shopId) => {
         }
     ).exec();
 }
+
