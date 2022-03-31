@@ -1522,6 +1522,38 @@
                     }
                 }
             }
+        },
+        "/product-item/{id}": {
+            "get": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "returns product-items details",
+                "description": "returns product-item details",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "product item id that need to be fetch",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    }
+                }
+            }
         }
     },
     "definitions": {

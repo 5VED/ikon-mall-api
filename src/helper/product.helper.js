@@ -183,9 +183,6 @@ exports.getProductItemAndProductById = async (id) => {
         as: "review_info",
       },
     },
-    {
-      $unwind: "$review_info",
-    },
     { $match: { _id: ObjectId(id) } }
   ]).limit(1);
 
@@ -202,36 +199,62 @@ exports.getProductItemAndProductById = async (id) => {
       return element;
     });
 
-    item.review_info["1"].map((element, index) => {
-      element.user  = item.review_info["oneStar"][index];
-      return element
-    });
-    item.review_info["2"].map((element, index) => {
-      element.user  = item.review_info["twoStar"][index];
-      return element
-    });
-    item.review_info["3"].map((element, index) => {
-      element.user  = item.review_info["threeStar"][index];
-      return element
-    });
-    item.review_info["4"].map((element, index) => {
-      element.user  = item.review_info["fourStar"][index];
-      return element
-    });
-    item.review_info["5"].map((element, index) => {
-      element.user  = item.review_info["fiveStar"][index];
-      return element
-    });
-    delete item.review_info["oneStar"];
-    delete item.review_info["twoStar"];
-    delete item.review_info["threeStar"];
-    delete item.review_info["fourStar"];
-    delete item.review_info["fiveStar"];
+    if (item.review_info.length > 0) {
+      item.review_info = item.review_info[0];
+      item.review_info["1"].map((element, index) => {
+        element.user = item.review_info["oneStar"][index];
+        return element
+      });
+      item.review_info["2"].map((element, index) => {
+        element.user = item.review_info["twoStar"][index];
+        return element
+      });
+      item.review_info["3"].map((element, index) => {
+        element.user = item.review_info["threeStar"][index];
+        return element
+      });
+      item.review_info["4"].map((element, index) => {
+        element.user = item.review_info["fourStar"][index];
+        return element
+      });
+      item.review_info["5"].map((element, index) => {
+        element.user = item.review_info["fiveStar"][index];
+        return element
+      });
+      delete item.review_info["oneStar"];
+      delete item.review_info["twoStar"];
+      delete item.review_info["threeStar"];
+      delete item.review_info["fourStar"];
+      delete item.review_info["fiveStar"];
+    }
+
     return item;
   });
 
+  productItem = productItem[0];
 
-
+  productItem.colorSizeList = await ProductItem.aggregate([
+    {
+      $match: {
+        product: new ObjectId(productItem.product),
+        brand: new ObjectId(productItem.brand),
+        name: productItem.name,
+        _id: { $ne: ObjectId(id) }
+      }
+    }
+  ]);
+  productItem.colorList = [];
+  productItem.colorSizeList.map((item) => {
+    if (!productItem.colorList.find(x => x.color === item.color)) {
+      productItem.colorList.push({ color: item.color, id: item._id });
+    }
+  })
+  productItem.sizeList = []
+  productItem.colorSizeList.map((item) => {
+    if (!productItem.sizeList.find(x => x.size === item.size)) {
+      productItem.sizeList.push({ size: item.size, id: item._id });
+    }
+  })
   return productItem;
 };
 
