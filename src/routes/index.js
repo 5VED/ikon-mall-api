@@ -7,5 +7,6 @@ route.cart = require("./cart/cart.route");
 route.brand = require("./brands/brands.route");
 route.wishlist = require("./user/wishlist.route");
 route.user = require("./user/user.route");
+route.order = require("./orders/orders.route");
 
 module.exports = route;
