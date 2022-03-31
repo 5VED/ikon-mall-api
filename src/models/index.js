@@ -28,5 +28,7 @@ db.ROLES = ["ADMIN", "VENDER", "CUSTOMER"];
 
 db.Cart = require("./cart.model");
 db.Wishlist = require("./user/wishlist.model");
+db.Order = require("./order/order.model");
+db.OrderItem = require("./order/orderItem.model");
 
 module.exports = db;
