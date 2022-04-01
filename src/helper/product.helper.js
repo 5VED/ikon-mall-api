@@ -188,17 +188,6 @@ exports.getProductItemAndProductById = async (id) => {
 
 
   productItem = productItem.map((item) => {
-    item.images = item.images.map((element) => {
-      element =
-        "https://icon-mall.herokuapp.com/uploads/products/" +
-        item.product +
-        "/" +
-        item._id +
-        "/" +
-        element;
-      return element;
-    });
-
     if (item.review_info.length > 0) {
       item.review_info = item.review_info[0];
       item.review_info["1"].map((element, index) => {
