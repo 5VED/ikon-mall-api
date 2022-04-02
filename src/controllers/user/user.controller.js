@@ -49,7 +49,7 @@ exports.UpdateAddress = async (req, res) => {
     const addressId = req.params.addressId;
     const payload = req.body;
     const result = await userHelper.updateAddress(addressId, payload);
-    if (!result.matchedCount) {
+    if (!result) {
       logger.warn('address not found');
       return res.status(StatusCodes.NOT_FOUND).json({
         data: [],
