@@ -12,6 +12,18 @@ exports.processDataForUpload = async (data) => {
     const products = (await Product.find({}, 'name category').lean().exec()).map(product => { return { ...product, name: product.name.toLowerCase() } });
     const categories = (await Category.find({}, 'name').lean().exec()).map(category => { return { ...category, name: category.name.toLowerCase() } });
     const brands = (await Brand.find({}, 'name').lean().exec()).map(brand => { return { ...brand, name: brand.name.toLowerCase() } });
+    const sizes = (await db.sizeunitvalues.aggregate([{
+      $lookup: {
+        from: 'sizeunits',
+        localField: 'unitId',
+        foreignField: '_id',
+        as: 'SIZEUNIT'
+      }
+    },
+    {
+      $unwind: '$SIZEUNIT'
+    }
+    ]));
     for (const item of data) {
       try {
         //check if category exist
@@ -36,12 +48,17 @@ exports.processDataForUpload = async (data) => {
           products.push({ _id: newProduct._id, name: newProduct.name.toLowerCase(), category: categoryId });
         }
 
+        /**
+         * check if size exists
+         */
+        const sizeId = sizes.find(sizeElement => sizeElement.unitValue == item.Size && sizeElement.unit == item.SizeUnit)._id;
+
         const brandId = brand ? brand._id : brands.find(el => el.name === item.Brand.toLowerCase())._id;
         const productId = product ? product._id : products.find(productElement => productElement.name === item.ProductName.toLowerCase() && productElement.category.toString() === categoryId.toString())._id;
         const productItem = await ProductItem.findOne(
           {
             color: item.Color,
-            size: item.Size,
+            size: sizeId,
             brand: brandId.toString(),
             product: productId.toString(),
             shop: item.Shop,
@@ -66,7 +83,7 @@ exports.processDataForUpload = async (data) => {
           const newProductItem = new ProductItem({
             name: item.ProductItemName,
             color: item.Color,
-            size: item.Size,
+            size: sizeId,
             sellerPrice: parseFloat(item.SellerPrice),
             costPrice: parseFloat(item.CostPrice),
             mrp: parseFloat(item.Mrp),
@@ -183,7 +200,49 @@ exports.getProductItemAndProductById = async (id) => {
         as: "review_info",
       },
     },
-    { $match: { _id: ObjectId(id) } }
+    { $match: { _id: ObjectId(id) } },
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        SIZEVALUE: 0
+      }
+    }
   ]).limit(1);
 
 
@@ -230,6 +289,48 @@ exports.getProductItemAndProductById = async (id) => {
         name: productItem.name,
         _id: { $ne: ObjectId(id) }
       }
+    },
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        SIZEVALUE: 0
+      }
     }
   ]);
   productItem.colorList = [];
@@ -241,7 +342,7 @@ exports.getProductItemAndProductById = async (id) => {
   productItem.sizeList = []
   productItem.colorSizeList.map((item) => {
     if (!productItem.sizeList.find(x => x.size === item.size)) {
-      productItem.sizeList.push({ size: item.size, id: item._id });
+      productItem.sizeList.push({ sizeId: item.size, size: item.unitSize, unit: item.unitValue, id: item._id });
     }
   })
   return productItem;
@@ -413,6 +514,52 @@ exports.getProductItemsWithFilters = async (payload) => {
   if (Object.keys(sortquery).length > 0) {
     aggregateQuery = [...aggregateQuery, sortquery];
   }
+
+  aggregateQuery.push(
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        size: 0,
+        SIZEVALUE: 0
+      }
+    }
+  );
   return ProductItem.aggregate(aggregateQuery).skip(Number(payload.skip)).limit(Number(payload.limit)).exec();
 }
 
@@ -504,6 +651,51 @@ exports.getProductItemsByShopAndCategory = async (params) => {
   } else {
     query.push({ '$addFields': { 'isLiked': false } });
   }
+  query.push(
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        size: 0,
+        SIZEVALUE: 0
+      }
+    }
+  )
   return ProductItem.aggregate(query).skip(Number(skip)).limit(Number(limit)).exec();
 }
 
@@ -644,6 +836,49 @@ exports.getProductItemsByShop = async (params) => {
             {
               '$project': {
                 'wishlist': 0
+              }
+            },
+            {
+              $lookup: {
+                from: 'sizeunitvalues',
+                let: { 'size': '$size' },
+                pipeline: [
+                  {
+                    $match: { $expr: { $eq: ['$_id', '$$size'] } }
+                  },
+                  {
+                    $lookup: {
+                      from: 'sizeunits',
+                      let: { 'unitId': '$unitId' },
+                      pipeline: [
+                        {
+                          $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                        }
+                      ],
+                      'as': 'SIZEUNIT'
+                    }
+                  },
+                  {
+                    $unwind: "$SIZEUNIT"
+                  }
+                ],
+                as: 'SIZEVALUE'
+              }
+            },
+            {
+              $unwind: "$SIZEVALUE"
+            },
+
+            {
+              $addFields: {
+                unitSize: '$SIZEVALUE.unitValue',
+                unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+              }
+            },
+            {
+              $project: {
+                size: 0,
+                SIZEVALUE: 0
               }
             },
             {
