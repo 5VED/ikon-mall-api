@@ -200,7 +200,49 @@ exports.getProductItemAndProductById = async (id) => {
         as: "review_info",
       },
     },
-    { $match: { _id: ObjectId(id) } }
+    { $match: { _id: ObjectId(id) } },
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        SIZEVALUE: 0
+      }
+    }
   ]).limit(1);
 
 
@@ -247,6 +289,48 @@ exports.getProductItemAndProductById = async (id) => {
         name: productItem.name,
         _id: { $ne: ObjectId(id) }
       }
+    },
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        SIZEVALUE: 0
+      }
     }
   ]);
   productItem.colorList = [];
@@ -258,7 +342,7 @@ exports.getProductItemAndProductById = async (id) => {
   productItem.sizeList = []
   productItem.colorSizeList.map((item) => {
     if (!productItem.sizeList.find(x => x.size === item.size)) {
-      productItem.sizeList.push({ size: item.size, id: item._id });
+      productItem.sizeList.push({ sizeId: item.size, size: item.unitSize, unit: item.unitValue, id: item._id });
     }
   })
   return productItem;
