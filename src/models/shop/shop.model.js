@@ -11,14 +11,14 @@ const locationSchema = new Schema({
         required: true
     }
 })
-const Shop = mongoose.model( "Shop", new Schema(
-    { 
+const Shop = mongoose.model("Shop", new Schema(
+    {
         shopName: {
             type: String,
             required: true
         },
         desc: String,
-        categoryId: [{		  
+        categoryId: [{
             type: Schema.Types.ObjectId,
             ref: 'Category',
             required: true
@@ -44,6 +44,13 @@ const Shop = mongoose.model( "Shop", new Schema(
             default: false
         },
         deletedAt: Date,
+        addressLine1: String,
+        addressLine2: String,
+        deliveryFree: Number,
+        deliveryType: [{
+            type: String,
+            enum: ["Delivery", "Pick up"],
+        }],
         timings: [
             // {
             //     open: Number,
