@@ -43,6 +43,10 @@ const productItemSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  specification: {
+    type: Object,
+    default: {}
+  },
   brand: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Brand',
