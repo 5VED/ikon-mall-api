@@ -777,6 +777,7 @@ exports.getProductItemsByShop = async (params) => {
       sort['name'] = 1;
       break;
   }
+  
   return Category.aggregate(
     [
       {
