@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "ikon-app.herokuapp.com/api",
+    "host": "localhost:5000/api",
     "basePath": "/",
     "tags": [
         {
@@ -1121,6 +1121,70 @@
                         "description": "Address not found"
                     }
                 }
+            },
+            "get": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "Get shop data by Id",
+                "description": "This API gives the data of the shop in market",
+                "operationId": "getShop",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "path",
+                        "description": "ID of the shop whose data is requested",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Address not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/shop/brand/{shopId}": {
+            "get": {
+                "tags": [
+                    "Shops"
+                ],
+                "summary": "Get Brands of the Shop by ShopID",
+                "description": "This API gives the data of the available brandes of the products in that shop",
+                "operationId": "getShop",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "shopId",
+                        "in": "path",
+                        "description": "ID of the shop whose data is requested",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Address not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
             }
         },
         "/shop/rating": {
@@ -1522,6 +1586,42 @@
                     }
                 }
             }
+        },
+        "/order": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Create Order of User",
+                "description": "It created Order for users and shops",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Add order for shop or user",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order Placed Succesfully"
+                    },
+                    "400": {
+                        "description": "A token is required for authentication"
+                    },
+                    "401": {
+                        "description": "Invalid token"
+                    },
+                    "500": {
+                        "description": "Error in placing order"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1546,11 +1646,8 @@
                 "paymentMethod"
             ],
             "properties": {
-                "orderNumber": {
-                    "type": "Number"
-                },
                 "orderTotal": {
-                    "type": "Number"
+                    "type": "number"
                 },
                 "paymentMethod": {
                     "type": "string"

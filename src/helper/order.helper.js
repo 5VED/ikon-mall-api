@@ -10,37 +10,81 @@ exports.placeOrder = async (payload) => {
     shopId: payload.shopId,
     orderStatus: "pending",
   });
-  return order.save();
+  order.save(function (err, response) {
+    if (err) {
+    } else {
+      payload.productItems.forEach((element) => {
+        const order = new OrderItem({
+          productItemId: element.productItemId,
+          quantity: element.quantity,
+          deliveryStatus: element.deliveryStatus,
+          orderId: response._id,
+        });
+        order.save();
+      });
+      return response;
+    }
+  });
+};
+
+exports.getUserOrders = async (payload) => {
+  const userOrders = new OrderItem({
+    productItemId: payload.productItemId,
+    orderId: payload.orderId,
+    quantity: payload.quantity,
+    price: payload.price,
+    deliveryStatus: "shipped",
+    updatedAt: payload.updatedAt,
+    deletedAt: payload.deletedAt,
+  });
+  console.log(userOrders);
+  return userOrders.save();
 };
 
 //Returns the order from the same shop
-exports.getOrdersByShopId = async (shopId) => {
+exports.getOrdersByShopId = async (shopId, skip, limit) => {
   const query = [
     {
       $match: { shopId: ObjectId(shopId) },
+    },
+    {
+      $lookup: {
+        from: "orderitems",
+        localField: "_id",
+        foreignField: "orderId",
+        as: "ORDEREDITEMS",
+      },
+    },
+    {
+      $skip: parseInt(skip),
+    },
+    {
+      $limit: parseInt(limit),
     },
   ];
   return Order.aggregate(query).exec();
 };
 
 //Returns the order from the same user
-exports.getOrdersByUserId = async (userId) => {
+exports.getOrdersByUserId = async (userId, skip, limit) => {
   const query = [
     {
       $match: { userId: ObjectId(userId) },
-    }
-    // {
-    //   $filter: {
-    //     input: ["pending", "in progress", "completed", "canceled", "rejected"],
-    //     as: "status",
-    //     cond: {
-    //       $and: [
-    //         { $gte: ["$$num", NumberLong("-9223372036854775807")] },
-    //         { $lte: ["$$num", NumberLong("9223372036854775807")] },
-    //       ],
-    //     },
-    //   },
-    // },
+    },
+    {
+      $lookup: {
+        from: "orderitems",
+        localField: "_id",
+        foreignField: "orderId",
+        as: "ORDEREDITEMS",
+      },
+    },
+    {
+      $skip: parseInt(skip),
+    },
+    {
+      $limit: parseInt(limit),
+    },
   ];
   return Order.aggregate(query).exec();
 };
