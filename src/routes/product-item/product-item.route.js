@@ -11,4 +11,6 @@ router.get('/categoryshop', productItemController.getProductItemsByShopAndCatego
 router.post('/rating', productItemValidator.RateProductItemValidator, productItemController.RateProduct);
 router.get('/rating', productItemController.GetProductItemRatingsByProductItemId);
 router.get('/shop', productItemController.GetProductItemsByShop);
+router.get('/:id', productItemController.getProductItemAndProductById);
+
 module.exports = router;

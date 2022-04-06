@@ -41,8 +41,8 @@ exports.deleteAddress = async (addressId) => {
 
 exports.updateAddress = async (addressId, payload) => {
     payload = { ...payload, updatedAt: Date.now() };
-    return Address.updateOne(
-        { _id: ObjectId(addressId.toString()), deleted: false },
+    return Address.findByIdAndUpdate(
+        addressId.toString(),
         {
             $set: payload
         }

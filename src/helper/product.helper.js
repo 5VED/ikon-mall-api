@@ -12,6 +12,18 @@ exports.processDataForUpload = async (data) => {
     const products = (await Product.find({}, 'name category').lean().exec()).map(product => { return { ...product, name: product.name.toLowerCase() } });
     const categories = (await Category.find({}, 'name').lean().exec()).map(category => { return { ...category, name: category.name.toLowerCase() } });
     const brands = (await Brand.find({}, 'name').lean().exec()).map(brand => { return { ...brand, name: brand.name.toLowerCase() } });
+    const sizes = (await db.sizeunitvalues.aggregate([{
+      $lookup: {
+        from: 'sizeunits',
+        localField: 'unitId',
+        foreignField: '_id',
+        as: 'SIZEUNIT'
+      }
+    },
+    {
+      $unwind: '$SIZEUNIT'
+    }
+    ]));
     for (const item of data) {
       try {
         //check if category exist
@@ -36,12 +48,17 @@ exports.processDataForUpload = async (data) => {
           products.push({ _id: newProduct._id, name: newProduct.name.toLowerCase(), category: categoryId });
         }
 
+        /**
+         * check if size exists
+         */
+        const sizeId = sizes.find(sizeElement => sizeElement.unitValue == item.Size && sizeElement.unit == item.SizeUnit)._id;
+
         const brandId = brand ? brand._id : brands.find(el => el.name === item.Brand.toLowerCase())._id;
         const productId = product ? product._id : products.find(productElement => productElement.name === item.ProductName.toLowerCase() && productElement.category.toString() === categoryId.toString())._id;
         const productItem = await ProductItem.findOne(
           {
             color: item.Color,
-            size: item.Size,
+            size: sizeId,
             brand: brandId.toString(),
             product: productId.toString(),
             shop: item.Shop,
@@ -66,7 +83,7 @@ exports.processDataForUpload = async (data) => {
           const newProductItem = new ProductItem({
             name: item.ProductItemName,
             color: item.Color,
-            size: item.Size,
+            size: sizeId,
             sellerPrice: parseFloat(item.SellerPrice),
             costPrice: parseFloat(item.CostPrice),
             mrp: parseFloat(item.Mrp),
@@ -95,6 +112,240 @@ exports.addProduct = async (productName, categoryId) => {
     category: categoryId,
   });
   return product.save();
+};
+
+exports.getProductItemAndProductById = async (id) => {
+  let productItem = await ProductItem.aggregate([
+    {
+      $lookup: {
+        from: "products",
+        localField: "product",
+        foreignField: "_id",
+        as: "product_info",
+      },
+    },
+    {
+      $unwind: "$product_info",
+    },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "product_info.category",
+        foreignField: "_id",
+        as: "categories_info",
+      },
+    },
+    {
+      $unwind: "$categories_info",
+    },
+    {
+      $lookup: {
+        from: "brands",
+        localField: "brand",
+        foreignField: "_id",
+        as: "brand_info",
+      },
+    },
+    {
+      $unwind: "$brand_info",
+    },
+    {
+      $lookup: {
+        from: "productratings",
+        localField: "_id",
+        foreignField: "productItemId",
+        pipeline: [
+
+          {
+            $lookup: {
+              from: 'users',
+              localField: '5.userId',
+              foreignField: '_id',
+              as: 'fiveStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '4.userId',
+              foreignField: '_id',
+              as: 'fourStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '3.userId',
+              foreignField: '_id',
+              as: 'threeStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '2.userId',
+              foreignField: '_id',
+              as: 'twoStar'
+            }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: '1.userId',
+              foreignField: '_id',
+              as: 'oneStar'
+            }
+          },
+        ],
+        as: "review_info",
+      },
+    },
+    { $match: { _id: ObjectId(id) } },
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        SIZEVALUE: 0
+      }
+    }
+  ]).limit(1);
+
+
+  productItem = productItem.map((item) => {
+    if (item.review_info.length > 0) {
+      item.review_info = item.review_info[0];
+      item.review_info["1"].map((element, index) => {
+        element.user = item.review_info["oneStar"][index];
+        return element
+      });
+      item.review_info["2"].map((element, index) => {
+        element.user = item.review_info["twoStar"][index];
+        return element
+      });
+      item.review_info["3"].map((element, index) => {
+        element.user = item.review_info["threeStar"][index];
+        return element
+      });
+      item.review_info["4"].map((element, index) => {
+        element.user = item.review_info["fourStar"][index];
+        return element
+      });
+      item.review_info["5"].map((element, index) => {
+        element.user = item.review_info["fiveStar"][index];
+        return element
+      });
+      delete item.review_info["oneStar"];
+      delete item.review_info["twoStar"];
+      delete item.review_info["threeStar"];
+      delete item.review_info["fourStar"];
+      delete item.review_info["fiveStar"];
+    }
+
+    return item;
+  });
+
+  productItem = productItem[0];
+
+  productItem.colorSizeList = await ProductItem.aggregate([
+    {
+      $match: {
+        product: new ObjectId(productItem.product),
+        brand: new ObjectId(productItem.brand),
+        name: productItem.name,
+        _id: { $ne: ObjectId(id) }
+      }
+    },
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        SIZEVALUE: 0
+      }
+    }
+  ]);
+  productItem.colorList = [];
+  productItem.colorSizeList.map((item) => {
+    if (!productItem.colorList.find(x => x.color === item.color)) {
+      productItem.colorList.push({ color: item.color, id: item._id });
+    }
+  })
+  productItem.sizeList = []
+  productItem.colorSizeList.map((item) => {
+    if (!productItem.sizeList.find(x => x.size === item.size)) {
+      productItem.sizeList.push({ sizeId: item.size, size: item.unitSize, unit: item.unitValue, id: item._id });
+    }
+  })
+  return productItem;
 };
 
 exports.getProductItemAndProduct = async () => {
@@ -263,6 +514,52 @@ exports.getProductItemsWithFilters = async (payload) => {
   if (Object.keys(sortquery).length > 0) {
     aggregateQuery = [...aggregateQuery, sortquery];
   }
+
+  aggregateQuery.push(
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        size: 0,
+        SIZEVALUE: 0
+      }
+    }
+  );
   return ProductItem.aggregate(aggregateQuery).skip(Number(payload.skip)).limit(Number(payload.limit)).exec();
 }
 
@@ -354,6 +651,51 @@ exports.getProductItemsByShopAndCategory = async (params) => {
   } else {
     query.push({ '$addFields': { 'isLiked': false } });
   }
+  query.push(
+    {
+      $lookup: {
+        from: 'sizeunitvalues',
+        let: { 'size': '$size' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$_id', '$$size'] } }
+          },
+          {
+            $lookup: {
+              from: 'sizeunits',
+              let: { 'unitId': '$unitId' },
+              pipeline: [
+                {
+                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            $unwind: "$SIZEUNIT"
+          }
+        ],
+        as: 'SIZEVALUE'
+      }
+    },
+    {
+      $unwind: "$SIZEVALUE"
+    },
+
+    {
+      $addFields: {
+        unitSize: '$SIZEVALUE.unitValue',
+        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      $project: {
+        size: 0,
+        SIZEVALUE: 0
+      }
+    }
+  )
   return ProductItem.aggregate(query).skip(Number(skip)).limit(Number(limit)).exec();
 }
 
@@ -495,6 +837,49 @@ exports.getProductItemsByShop = async (params) => {
             {
               '$project': {
                 'wishlist': 0
+              }
+            },
+            {
+              $lookup: {
+                from: 'sizeunitvalues',
+                let: { 'size': '$size' },
+                pipeline: [
+                  {
+                    $match: { $expr: { $eq: ['$_id', '$$size'] } }
+                  },
+                  {
+                    $lookup: {
+                      from: 'sizeunits',
+                      let: { 'unitId': '$unitId' },
+                      pipeline: [
+                        {
+                          $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
+                        }
+                      ],
+                      'as': 'SIZEUNIT'
+                    }
+                  },
+                  {
+                    $unwind: "$SIZEUNIT"
+                  }
+                ],
+                as: 'SIZEVALUE'
+              }
+            },
+            {
+              $unwind: "$SIZEVALUE"
+            },
+
+            {
+              $addFields: {
+                unitSize: '$SIZEVALUE.unitValue',
+                unitValue: "$SIZEVALUE.SIZEUNIT.unit"
+              }
+            },
+            {
+              $project: {
+                size: 0,
+                SIZEVALUE: 0
               }
             },
             {

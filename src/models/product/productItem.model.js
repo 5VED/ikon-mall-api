@@ -10,7 +10,8 @@ const productItemSchema = mongoose.Schema({
     required: true,
   },
   size: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'sizeunitvalues',
     required: true,
   },
   images: [
