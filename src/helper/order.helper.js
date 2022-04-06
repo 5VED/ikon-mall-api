@@ -79,6 +79,7 @@ exports.getOrdersByUserId = async (userId, skip, limit) => {
         as: "ORDEREDITEMS",
       },
     },
+    { $sort: { orderedAt: -1} },
     {
       $skip: parseInt(skip),
     },

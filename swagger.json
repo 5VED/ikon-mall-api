@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:5000/api",
+    "host": "ikon-app.herokuapp.com/api",
     "basePath": "/",
     "tags": [
         {
@@ -43,6 +43,10 @@
         {
             "name": "Vendor",
             "description": "API for Vendor"
+        },
+        {
+            "name": "Order",
+            "description": "API for Order"
         }
     ],
     "schemes": [
@@ -1622,7 +1626,7 @@
         "/order": {
             "post": {
                 "tags": [
-                    "order"
+                    "Order"
                 ],
                 "summary": "Create Order of User",
                 "description": "It created Order for users and shops",
@@ -1630,7 +1634,7 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Add order for shop or user",
+                        "description": "Add order for user",
                         "schema": {
                             "$ref": "#/definitions/Order"
                         }
@@ -1642,6 +1646,61 @@
                 "responses": {
                     "200": {
                         "description": "Order Placed Succesfully"
+                    },
+                    "400": {
+                        "description": "A token is required for authentication"
+                    },
+                    "401": {
+                        "description": "Invalid token"
+                    },
+                    "500": {
+                        "description": "Error in placing order"
+                    }
+                }
+            }
+        },
+        "/order/{userId}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "get the user order history",
+                "description": "get the user order history",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "example":20,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "user id that need to be fetch for order",
+                        "required": true,
+                        "type": "string"
+                    }
+                    
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Orders fetched Succesfully"
                     },
                     "400": {
                         "description": "A token is required for authentication"
@@ -1673,19 +1732,53 @@
                 }
             }
         },
-        "Order": {
+        "OrderItem": {
             "required": [
-                "paymentMethod"
+                "productItemId",
+                "quantity",
+                "deliveryStatus"
             ],
             "properties": {
-                "orderTotal": {
+                "productItemId": {
+                    "type": "string"
+                },
+                "quantity": {
                     "type": "number"
                 },
+                "deliveryStatus": {
+                    "type": "string"
+                }
+            }
+        },
+        "Order": {
+            "required": [
+                "paymentMethod",
+                "shippingAddress",
+                "userId",
+                "shopId",
+                "productItems"
+            ],
+            "properties": {
                 "paymentMethod": {
                     "type": "string"
                 },
                 "orderStatus": {
                     "type": "string"
+                },
+                "shippingAddress": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "shopId": {
+                    "type": "string"
+                },
+                "productItems": {
+                    "type": "array",
+                    "items":{
+                        "$ref": "#/definitions/OrderItem"
+                    } 
                 }
             }
         },
