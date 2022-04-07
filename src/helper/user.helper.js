@@ -84,10 +84,10 @@ exports.login = async (payload) => {
             token: token
         });
         await newToken.save();
-        return { login: true, token: token, message: 'Login successful' };
+        return { login: true, token: token, message: 'Login successful', data: user };
     }
 
-    return { login: false, token: null, message: 'Invalid crentials' };
+    return { login: false, token: null, message: 'Invalid crentials', data: user };
 }
 
 exports.changePassword = async (payload) => {
