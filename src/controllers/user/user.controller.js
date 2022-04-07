@@ -194,3 +194,37 @@ exports.VerifyOtp = async (req, res) => {
     })
   }
 }
+
+exports.AddUserCard = async (req, res) => {
+  try {
+    const result = await userHelper.saveCard(req.body);
+    logger.info("card added successfully");
+    return res.status(StatusCodes.OK).json({
+      data: result,
+      message: 'card added successfully'
+    })
+  } catch (error) {
+    logger.error(`Error in adding card:: ${error.message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+      message: 'Error in adding card'
+    })
+  }
+}
+
+exports.GetAllCardByUserId = async (req, res) => {
+  try {
+    const result = await userHelper.getAllCardByUserId(req.params.userId);
+    logger.info("cards fetched successfully");
+    return res.status(StatusCodes.OK).json({
+      data: result,
+      message: 'cards fetched successfully'
+    })
+  } catch (error) {
+    logger.error(`Error in getting cards:: ${error.message}`);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: error.message,
+      message: 'Error in getting cards'
+    })
+  }
+}

@@ -944,6 +944,42 @@
                 }
             }
         },
+        "/user/card/{userId}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "get user card list",
+                "description": "This can only be done by the logged in user.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "userId that need to be fetch",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+          
+        },
         "/shop": {
             "get": {
                 "tags": [

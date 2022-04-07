@@ -1,4 +1,4 @@
-const { Address, User, Token } = require('../models/index');
+const { Address, User, Token, Card } = require('../models/index');
 const { USER, TOKEN_KEY } = require("../../lib/constant");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -71,11 +71,11 @@ exports.signup = async (payload) => {
 }
 
 exports.login = async (payload) => {
-     const { email, password } = payload;
-     const user = await User.findOne({ email: email.toString().toLowerCase(),deleted:false})
-     console.log("user====>",user)
+    const { email, password } = payload;
+    const user = await User.findOne({ email: email.toString().toLowerCase(), deleted: false })
+    console.log("user====>", user)
 
-    if (user &&  bcrypt.compareSync(password, user.password)) {
+    if (user && bcrypt.compareSync(password, user.password)) {
         console.log('over here');
         const token = jwt.sign({ email: user.email }, TOKEN_KEY, { expiresIn: "24h" });
         const newToken = new Token({
@@ -126,4 +126,25 @@ exports.verifyOtp = async (payload) => {
         return { verified: true, message: 'User verification successful' }
     }
     return { verified: false, message: 'User not verified' };
+}
+
+exports.saveCard = async (payload) => {
+    const card = new Card({
+        cardNumber: payload.cardNumber,
+        validThrough: payload.validThrough,
+        CVV: payload.CVV,
+        nameOnCard: payload.nameOnCard,
+        CardNickName: payload.CardNickName,
+        userId: payload.userId
+    });
+    const error = await card.validate();
+    if (error) {
+        throw error;
+    } else {
+        return card.save();
+    }
+}
+
+exports.getAllCardByUserId = async (userId) => {
+    return Card.find({ deleted: false, userId: userId.toString() }).exec();
 }
