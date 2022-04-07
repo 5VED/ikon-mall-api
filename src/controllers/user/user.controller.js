@@ -121,19 +121,22 @@ exports.Login = async (req, res) => {
       logger.info("Login successful");
       return res.status(StatusCodes.OK).json({
         token: result.token,
-        message: result.message
+        message: result.message,
+        data: result.data
       });
     }
     logger.warn("Invalid credentials");
     return res.status(StatusCodes.UNAUTHORIZED).json({
       token: result.token,
-      message: result.message
+      message: result.message,
+      data: result.data
     });
   } catch (error) {
     logger.error(`Error in login:: ${error.message}`);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       error: error.message,
-      message: 'Error in login'
+      message: 'Error in login',
+      data: result.data
     });
   }
 }
