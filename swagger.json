@@ -944,6 +944,44 @@
                 }
             }
         },
+        "/user/card": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "adde card for user",
+                "description": "This can only be done by the logged in user.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "card object that needs to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Card"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+          
+        },
         "/user/card/{userId}": {
             "get": {
                 "tags": [
@@ -2031,6 +2069,42 @@
                 "vendorId": {
                     "type": "string",
                     "example": "61fe18829af8fd2eab57d7a1"
+                }
+            }
+        },
+        "Card":{
+            "required": [
+                "cardNumber",
+                "validThrough",
+                "CVV",
+                "nameOnCard",
+                "CardNickName",
+                "userId"
+            ],
+            "properties":{
+                "cardNumber": {
+                    "type": "string",
+                    "example": "123456123456"
+                },
+                "validThrough": {
+                    "type": "string",
+                    "example": "25/24"
+                },
+                "CVV": {
+                    "type": "number",
+                    "example": 452
+                },
+                "nameOnCard": {
+                    "type": "number",
+                    "example": "shubham agarwal"
+                },
+                "CardNickName": {
+                    "type": "string",
+                    "example": "shubham"
+                },
+                "userId": {
+                    "type": "string",
+                    "example":"620f3fed199444f7bc02a143"
                 }
             }
         },
