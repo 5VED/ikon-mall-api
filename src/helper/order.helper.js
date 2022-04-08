@@ -19,6 +19,7 @@ exports.placeOrder = async (payload) => {
         productItemId: element.productItemId,
         quantity: element.quantity,
         orderId: order._id,
+        price:element.price
       });
       await productItems.save();
     });

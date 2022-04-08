@@ -980,7 +980,6 @@
                     }
                 }
             }
-          
         },
         "/user/card/{userId}": {
             "get": {
@@ -1016,7 +1015,6 @@
                     }
                 }
             }
-          
         },
         "/shop": {
             "get": {
@@ -1753,7 +1751,7 @@
                     {
                         "in": "query",
                         "name": "limit",
-                        "example":20,
+                        "example": 20,
                         "schema": {
                             "type": "integer"
                         },
@@ -1767,7 +1765,6 @@
                         "required": true,
                         "type": "string"
                     }
-                    
                 ],
                 "produces": [
                     "application/json"
@@ -1809,13 +1806,17 @@
         "OrderItem": {
             "required": [
                 "productItemId",
-                "quantity"
+                "quantity",
+                "price"
             ],
             "properties": {
                 "productItemId": {
                     "type": "string"
                 },
                 "quantity": {
+                    "type": "number"
+                },
+                "price": {
                     "type": "number"
                 }
             }
@@ -1846,9 +1847,9 @@
                 },
                 "productItems": {
                     "type": "array",
-                    "items":{
+                    "items": {
                         "$ref": "#/definitions/OrderItem"
-                    } 
+                    }
                 }
             }
         },
@@ -2068,7 +2069,7 @@
                 }
             }
         },
-        "Card":{
+        "Card": {
             "required": [
                 "cardNumber",
                 "validThrough",
@@ -2077,7 +2078,7 @@
                 "CardNickName",
                 "userId"
             ],
-            "properties":{
+            "properties": {
                 "cardNumber": {
                     "type": "string",
                     "example": "123456123456"
@@ -2100,7 +2101,7 @@
                 },
                 "userId": {
                     "type": "string",
-                    "example":"620f3fed199444f7bc02a143"
+                    "example": "620f3fed199444f7bc02a143"
                 }
             }
         },

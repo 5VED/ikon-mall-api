@@ -14,6 +14,9 @@ const orderItemSchema = new mongoose.Schema(
       type: Number,
       min: 1,
     },
+    price: {
+      type: Number,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
