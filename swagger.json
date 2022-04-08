@@ -1809,8 +1809,7 @@
         "OrderItem": {
             "required": [
                 "productItemId",
-                "quantity",
-                "deliveryStatus"
+                "quantity"
             ],
             "properties": {
                 "productItemId": {
@@ -1818,25 +1817,19 @@
                 },
                 "quantity": {
                     "type": "number"
-                },
-                "deliveryStatus": {
-                    "type": "string"
                 }
             }
         },
         "Order": {
             "required": [
-                "paymentMethod",
+                "paymentMode",
                 "shippingAddress",
                 "userId",
                 "shopId",
                 "productItems"
             ],
             "properties": {
-                "paymentMethod": {
-                    "type": "string"
-                },
-                "orderStatus": {
+                "paymentMode": {
                     "type": "string"
                 },
                 "shippingAddress": {
@@ -1846,6 +1839,9 @@
                     "type": "string"
                 },
                 "shopId": {
+                    "type": "string"
+                },
+                "transactionId ": {
                     "type": "string"
                 },
                 "productItems": {
