@@ -1,45 +1,45 @@
 const { Order, OrderItem, Shop } = require("../models/index");
 const { ObjectId } = require("mongoose").Types;
+const common = require("../../lib/common");
 
 exports.placeOrder = async (payload) => {
-  const order = new Order({
-    orderTotal: payload.orderTotal,
-    paymentMethod: payload.paymentMethod,
-    shippingAddress: payload.address,
+  let order = new Order({
+    paymentMode: payload.paymentMode,
+    shippingAddress: payload.shippingAddress,
     userId: payload.userId,
     shopId: payload.shopId,
     orderStatus: "pending",
+    transactionId: payload.shopId,
+    deliveryStatus: "confirm"
   });
-  order.save(function (err, response) {
-    if (err) {
-    } else {
-      payload.productItems.forEach((element) => {
-        const order = new OrderItem({
-          productItemId: element.productItemId,
-          quantity: element.quantity,
-          deliveryStatus: element.deliveryStatus,
-          orderId: response._id,
-        });
-        order.save();
+  order = await order.save();
+  if (order._id) {
+    await payload.productItems.forEach(async (element) => {
+      const productItems = new OrderItem({
+        productItemId: element.productItemId,
+        quantity: element.quantity,
+        orderId: order._id,
+        price:element.price
       });
-      return response;
-    }
-  });
+      await productItems.save();
+    });
+  }
+  return order;
 };
 
-exports.getUserOrders = async (payload) => {
-  const userOrders = new OrderItem({
-    productItemId: payload.productItemId,
-    orderId: payload.orderId,
-    quantity: payload.quantity,
-    price: payload.price,
-    deliveryStatus: "shipped",
-    updatedAt: payload.updatedAt,
-    deletedAt: payload.deletedAt,
-  });
-  console.log(userOrders);
-  return userOrders.save();
-};
+// exports.getUserOrders = async (payload) => {
+//   const userOrders = new OrderItem({
+//     productItemId: payload.productItemId,
+//     orderId: payload.orderId,
+//     quantity: payload.quantity,
+//     price: payload.price,
+//     deliveryStatus: "shipped",
+//     updatedAt: payload.updatedAt,
+//     deletedAt: payload.deletedAt,
+//   });
+//   console.log(userOrders);
+//   return userOrders.save();
+// };
 
 //Returns the order from the same shop
 exports.getOrdersByShopId = async (shopId, skip, limit) => {
@@ -73,13 +73,30 @@ exports.getOrdersByUserId = async (userId, skip, limit) => {
     },
     {
       $lookup: {
-        from: "orderitems",
-        localField: "_id",
-        foreignField: "orderId",
-        as: "ORDEREDITEMS",
-      },
+        from: 'orderitems',
+        let: { 'order_id': '$_id' },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ['$orderId', '$$order_id'] } }
+          },
+          {
+            $lookup: {
+              from: 'productitems',
+              localField: 'productItemId',
+              foreignField: '_id',
+              as: 'productItem'
+            }
+          },
+          {
+            $unwind: {
+              path: '$productItem'
+            }
+          }
+        ],
+        as: 'ordersitems'
+      }
     },
-    { $sort: { orderedAt: -1} },
+    { $sort: { orderedAt: -1 } },
     {
       $skip: parseInt(skip),
     },

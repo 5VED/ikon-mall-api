@@ -10,6 +10,8 @@ db.Token = require("./user/tokens.model");
 db.role = require("./role.model");
 db.otp =require("./otp.model");
 db.Address = require("./user/address.model");
+db.Card = require("./user/card.model");
+
 //shop
 db.Shop = require("./shop/shop.model");
 db.Category = require("./category.model");

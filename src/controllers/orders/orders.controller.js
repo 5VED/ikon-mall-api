@@ -44,8 +44,6 @@ exports.getUserOrders = async (req, res) => {
     const limit = req.query.limit;
 
     const order = await orderHelper.getOrdersByUserId(userId, skip, limit);
-
-    // console.log(order[0].orderStatus);
     return res
       .status(StatusCodes.OK)
       .json({ message: "Orders fetched Succesfully", orders: order });
