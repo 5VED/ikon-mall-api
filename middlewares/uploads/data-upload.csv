@@ -1,0 +1,366 @@
+ProductName,ProductItemName,Category,Brand,Size,Color,Quantity,Mrp,SellerPrice,CostPrice,Shop,Vendor
+Shirt,Dennis Lingo Men's Shirt,clothes,Zara,S,Black,10,459,449,399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Dennis Lingo Men's Shirt,clothes,Zara,M,Black,10,459,449,399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Dennis Lingo Men's Shirt,clothes,Zara,L,Black,10,459,449,399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Dennis Lingo Men's Shirt,clothes,Zara,XL,Black,10,459,449,399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Van Heusen Men's Printed Slim Fit Formal Shirt,clothes,Van Heusen,S,White,20,479,459,419,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Van Heusen Men's Printed Slim Fit Formal Shirt,clothes,Van Heusen,M,White,20,479,459,419,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Van Heusen Men's Printed Slim Fit Formal Shirt,clothes,Van Heusen,L,White,20,479,459,419,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Van Heusen Men's Printed Slim Fit Formal Shirt,clothes,Van Heusen,XL,White,20,479,459,419,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Casual Shirt,clothes,Highlander,S,Red,30,499,399,379,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Casual Shirt,clothes,Highlander,M,Red,30,499,399,379,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Casual Shirt,clothes,Highlander,L,Red,30,499,399,379,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Casual Shirt,clothes,Highlander,XL,Red,30,499,399,379,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Regular Fit Casual Shirt,clothes,Jack and Jones,S,Blue,40,829,759,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Regular Fit Casual Shirt,clothes,Jack and Jones,M,Blue,40,829,759,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Regular Fit Casual Shirt,clothes,Jack and Jones,L,Blue,40,829,759,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Regular Fit Casual Shirt,clothes,Jack and Jones,XL,Blue,40,829,759,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,U.S. POLO ASSN.,S,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,U.S. POLO ASSN.,M,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,U.S. POLO ASSN.,L,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,U.S. POLO ASSN.,XL,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,U.S. POLO ASSN.,XXL,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Allen Solly,S,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Allen Solly,M,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Allen Solly,L,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Allen Solly,XL,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Allen Solly,XXL,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Scott International,S,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Scott International,M,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Scott International,L,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Scott International,XL,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Casual Shirt,clothes,Scott International,XXL,White,50,609,559,459,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Zara,S,Red,451,1499,749,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Zara,M,Red,451,1499,749,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Zara,L,Red,451,1499,749,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Zara,XL,Red,451,1499,749,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Zara,XXL,Red,451,1499,749,699,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Van Heusen,S,Blue,160,2499,1624,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Van Heusen,M,Blue,160,2499,1624,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Van Heusen,L,Blue,160,2499,1624,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Van Heusen,XL,Blue,160,2499,1624,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Van Heusen,XXL,Blue,160,2499,1624,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Highlander,S,Beige,170,1519,1359,1199,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Highlander,M,Beige,170,1519,1359,1199,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Highlander,L,Beige,170,1519,1359,1199,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Highlander,XL,Beige,170,1519,1359,1199,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Checked Formal Shirt,clothes,Highlander,XXL,Beige,170,1519,1359,1199,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Checked Formal Shirt,clothes,Van Heusen,S,Olive green,40,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Checked Formal Shirt,clothes,Van Heusen,M,Olive green,40,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Checked Formal Shirt,clothes,Van Heusen,L,Olive green,40,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Checked Formal Shirt,clothes,Van Heusen,XL,Olive green,40,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Checked Formal Shirt,clothes,Van Heusen,XXL,Olive green,40,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Custom Fit Formal Shirt,clothes,Van Heusen,S,Black,10,1899,1519,1399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Custom Fit Formal Shirt,clothes,Van Heusen,M,Black,10,1899,1519,1399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Custom Fit Formal Shirt,clothes,Van Heusen,L,Black,10,1899,1519,1399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Custom Fit Formal Shirt,clothes,Van Heusen,XL,Black,10,1899,1519,1399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Custom Fit Formal Shirt,clothes,Van Heusen,XXL,Black,10,1899,1519,1399,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Striped Formal Shirt,clothes,Van Heusen,S,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Striped Formal Shirt,clothes,Van Heusen,M,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Striped Formal Shirt,clothes,Van Heusen,L,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Striped Formal Shirt,clothes,Van Heusen,XL,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Striped Formal Shirt,clothes,Van Heusen,XXL,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Van Heusen,S,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Van Heusen,M,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Van Heusen,L,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Van Heusen,XL,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Van Heusen,XXL,Blue,10,1699,1359,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Highlander,S,White,10,1499,539,499,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Highlander,M,White,10,1499,539,499,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Highlander,L,White,10,1499,539,499,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Highlander,XL,White,10,1499,539,499,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Slim Fit Formal Shirt,clothes,Highlander,XXL,White,10,1499,539,499,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,S,Navy Blue,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,M,Navy Blue,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,L,Navy Blue,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,XL,Navy Blue,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,XXL,Navy Blue,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Pure Cotton Shirt,clothes,Van Heusen,S,Blue,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Pure Cotton Shirt,clothes,Van Heusen,M,Blue,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Pure Cotton Shirt,clothes,Van Heusen,L,Blue,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Pure Cotton Shirt,clothes,Van Heusen,XL,Blue,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Slim Fit Pure Cotton Shirt,clothes,Van Heusen,XXL,Blue,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,S,Maroon,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,M,Maroon,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,L,Maroon,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,XL,Maroon,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Pure Cotton Formal Shirt,clothes,Van Heusen,XXL,Maroon,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Printed Formal Shirt,clothes,Van Heusen,S,Yellow,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Printed Formal Shirt,clothes,Van Heusen,M,Yellow,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Printed Formal Shirt,clothes,Van Heusen,L,Yellow,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Printed Formal Shirt,clothes,Van Heusen,XL,Yellow,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Printed Formal Shirt,clothes,Van Heusen,XXL,Yellow,10,1999,1599,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Checked Formal Shirt,clothes,Van Heusen,S,BlueViolet,10,2299,1379,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Checked Formal Shirt,clothes,Van Heusen,M,BlueViolet,10,2299,1379,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Checked Formal Shirt,clothes,Van Heusen,L,BlueViolet,10,2299,1379,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Checked Formal Shirt,clothes,Van Heusen,XL,BlueViolet,10,2299,1379,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Checked Formal Shirt,clothes,Van Heusen,XXL,BlueViolet,10,2299,1379,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Regular Fit Formal Shirt,clothes,Van Heusen,S,Crimson,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Regular Fit Formal Shirt,clothes,Van Heusen,M,Crimson,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Regular Fit Formal Shirt,clothes,Van Heusen,L,Crimson,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Shirt,Men Regular Fit Formal Shirt,clothes,Van Heusen,XL,Crimson,10,1999,1699,1299,621884780928652aa26c8b91,61fe18829af8fd2eab57d7a1
+Laptop,Predator Helios 300 Core,Electronics,Acer,Small,Black,10,130000,105000,90000,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Legion 5 core i7,Electronics,Lenovo,Big,Black,10,153000,99900,80999,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Vivobook 15,Electronics,Asus,Big,White,10,80000,57990,49999,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Vivobook Gaming,Electronics,Asus,Medium,Black,10,61990,88990,71999,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Core i7 11th Gen,Electronics,Asus,Small,White,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Ideapad Gaming Core,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Yoga 7 ,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad 540,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad Gaming i3,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus TUF gaming core i7,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus Zenbook 14 screen pad,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus Core i7 11th Gen,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Yoga Slim 7,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion x360,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Core i7,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo IdeaPad Gaming 3i Core,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,ASUS Zephyrus M16,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Acer Predator Triton 300,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus TUF gaming core i5,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP Envy Intel EVO Core i7,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion Gaming Core i7,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP Envy 13 x360,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,ASUS ROG Strix G Core i7,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron Core i7,Electronics,Dell,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Mi Notebook Horizon Edition 14,Electronics,Xioami,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus Vivobook Gaming Core i7,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus Zenbook Flip 13 OLED Touch Panel,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Yoga Slim 7 Intel EVO,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad Gaming 3i Core i7,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus TUF Gaming Core i7,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,Asus ZenBook 13,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Dell XPS 13 Core i7,Electronics,Dell,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,ASUS Zephyrus M16 2021,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Spectre x360 Core i7,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Legion 5 Core i7,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Envy x360 Intel EVO Core i7,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus ROG Zephyrus S15,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Predator Helios 300 Core i7,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Legion 5 Pro Core i7,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Thinbook Convertible Core i7,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus Zenbook Duo 14,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Spectre Folio Core i7,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus Zenbook 13 2021,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion Gaming Core i7 11th gen,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus TUF Gaming Core i7 11th Gen,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Omen Core i7,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP 15 Core i7 8th Gen,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus ExpertBook B9 Core i7,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Legion 5 Core i7 10th Gen,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Spectre x360 14 Intel EVO Core i7 11th Gen,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo V145,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP 245 G5 (Y0T72PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus Vivobook 15 X512DA-EJ503T,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo V145 81MT001EIH Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Asus VivoBook 15 X512DA Ultrabook,Electronics,Asus,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP 245 G5 (Y0T72PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Acer Nitro AN515-54 (NH.Q5BSI.002) Gaming Laptop,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Acer Predator Triton 700 (NH.Q2KSI.002) Gaming Laptop,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Acer Nitro 5 AN515-52 (UN.Q3MSI.007) Gaming Laptop,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Acer Predator Triton 300 (NH.Q6DSI.001) Gaming Laptop,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Acer Aspire 3 A315-34 (NX.HE3SI.002) Laptop,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Acer Predator Triton 300 (NH.Q6DSI.003) Gaming Laptop,Electronics,Acer,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 15 3583 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 15 5584 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 3583 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron G3 3590 Gaming Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 3585 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 3581 Laptop ,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron G3 3590 Gaming Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 15 3567 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 5584 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 15 3578 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 3581 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 3585 (C563105WIN9) Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 14 3481 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 5584 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell XPS 15 7590 Gaming Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 14 3481 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 3480 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 3481 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 15 3583 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 15 3584 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 14 5482 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 7580 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Vostro 15 3583 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell XPS 15 9575 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 13 7386 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Latitude 3580 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,Dell Inspiron 7580 Laptop,Electronics,Dell,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP EliteBook X360 (4SU65UT) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP 15-Di0002tu (8WN01PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP 250 G7 (7HA07PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP 14s Cr1018tx Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP 15-Db0244au Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP 15-DA0389TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Laptop,HP 15s-Du0050TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP 250 G7 (7HA07PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion 15-Ec0026AX (8UZ38PA) Gaming Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion X360 14-Dh1007TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion X360 14-Dh1008TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion X360 14-Dh1006TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,HP 14s- Cf0116tu Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 15s-Dr0002tx Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion X360 14-Dh1026TX Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 14q-Cs0023TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion X360 14-Dh1025TX Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP Pavilion 14-Ce2065TX Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 14q-Cs0019TU (7WP99PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 15-Da0400TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 15s-Du0093TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 15-DA0388TU Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 15g-Dr0008tu Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Laptop,HP 245 G7 (7GZ75PA) Laptop,Electronics,HP,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad 130 81H700BUIN Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Legion Y540 (81SY00C8IN) Gaming Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad S540 (81NE00AQIN) Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad L340 81LK00NRIN Gaming Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo IdeaPad S145 (81MV0166IN) Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad S340,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo IdeaPad S145,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad 330-15IKB,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo Ideapad S340-14API,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Laptop,Lenovo V145 81MT0034IH Laptop,Electronics,Lenovo,Medium,Black,10,118156,88990,69990,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP Neverstop Laser MFP 1202nw,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP OfficeJet Pro 9025,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP Officejet 250 All-In-One Portable Printer with Wireless & Mobile Printing (CZ992A),Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP Envy Pro 6420,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP LaserJet Pro M227fdw Laser Multifunction Printer,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP Neverstop Laser MFP 1202nw,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP OfficeJet Pro 9025,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP Officejet 250 All-In-One Portable Printer with Wireless & Mobile Printing (CZ992A),Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP Envy Pro 6420,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,HP LaserJet Pro M227fdw Laser Multifunction Printer,Electronics,HP,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson M100,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson M105,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson M1100,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson M1120,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson M1170,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L200,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L210,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L220,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L300,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L350,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L355,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L360,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L365,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L385,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L455,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson L550,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L555,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L565,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L655,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L1455,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3100,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3101,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3110,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3115,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3116,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3150,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3152,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3156,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3210,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3215,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3216,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3250,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L3256,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L4150,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L4160,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L5190,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L6160,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L6170,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L6190,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L6570,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L6580,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L14150,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L15150,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson L15160,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson Expression Home XP-102,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson Expression Home XP-202 (with Wi-Fi),Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson Expression Home XP-225,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson Expression Home XP-422,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-2528,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-2538,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-2548,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-2631,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-2651,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-2661,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-3521,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-5621,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-7511,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-7611,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C579R,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C869R,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C879R,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C5790,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C20590,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C20600,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C20750,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-C21000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-M5298,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-M5799,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-M20590,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-R5691,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson WF-R8591,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,WF-878R,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus Office TX300F,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus Office TX600FW,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus Photo TX700W,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus Photo TX720WD,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus TX110,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus TX121,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus TX210,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus TX220,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson Stylus TX550W,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson TM-C3510,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F2000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-B6070,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-B7070,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F530,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F531,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F2130,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F6070,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F6270,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F6330,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F7070,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F7170,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F7270,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8f04cfd5668a2990bcd53,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F9270,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F9330,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F9430,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-F9430H,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P407,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P607,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P807,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P5000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P6000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P7000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P7530,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P8000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P9000,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P9530,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P10070,Electronics,Epson,Big,Black,10,6099,5099,4099,61f8ef67fd5668a2990bcd4a,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-P20070,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S30670,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S40670,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S50670,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S60670,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S60670L,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S70670,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S80670,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-S80670L,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T3070,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T3130N,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T3130X,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T3270,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T3430,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T5070,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T5130,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T5270,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T5270D,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T5430,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T5430M,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T7070,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T7270,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
+Printer,Epson SureColor SC-T7270D,Electronics,Epson,Big,Black,10,6099,5099,4099,621884780928652aa26c8b94,61fe18829af8fd2eab57d7a1
