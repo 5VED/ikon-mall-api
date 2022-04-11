@@ -47,6 +47,10 @@
         {
             "name": "Order",
             "description": "API for Order"
+        },
+        {
+            "name": "FAQ",
+            "description": "API for FAQ"
         }
     ],
     "schemes": [
@@ -1736,8 +1740,8 @@
                 "tags": [
                     "Order"
                 ],
-                "summary": "get the user order history",
-                "description": "get the user order history",
+                "summary": "Get the user order history",
+                "description": "Get the user order history",
                 "parameters": [
                     {
                         "in": "query",
@@ -1784,9 +1788,112 @@
                     }
                 }
             }
+        },
+        "/faq": {
+            "post": {
+                "tags": [
+                    "FAQ"
+                ],
+                "summary": "Add new Question",
+                "description": "It add's new question which is asked frequently",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Add question for user",
+                        "schema": {
+                            "$ref": "#/definitions/FAQ"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Question Added Succesfully"
+                    },
+                    "500": {
+                        "description": "Error in adding Question"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "FAQ"
+                ],
+                "summary": "returns all vendors",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FAQ's fetched Succesfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/FAQ"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "FAQ": {
+            "required": [
+                "userId",
+                "shopId",
+                "category",
+                "question",
+                "answer"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "string",
+                    "example": "620f3fed199444f7bc02a143"
+                },
+                "shopId": {
+                    "type": "string",
+                    "example": "620ccebf672a910fcf97ec2f"
+                },
+                "category": {
+                    "type": "string",
+                    "example": "Shipping"
+                },
+                "question": {
+                    "type": "string",
+                    "example": "How Long does it take?"
+                },
+                "answer": {
+                    "type": "string",
+                    "example": "At Max 2 Hrs"
+                }
+            }
+        },
         "Brand": {
             "required": [
                 "name"

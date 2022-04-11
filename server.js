@@ -32,6 +32,8 @@ app.use('/api/cart', routes.cart);
 app.use('/api/brand', routes.brand);
 app.use('/api/wishlist', routes.wishlist);
 app.use('/api/order', routes.order);
+app.use('/api/faq', routes.faq);
+
 
 // Connect to Mongoose and set connection variable
 mongoose.connect('mongodb+srv://test-user:test-user@cluster0.unxi0.mongodb.net/iKonMall?retryWrites=true&w=majority', { useNewUrlParser: true });

@@ -73,10 +73,7 @@ exports.signup = async (payload) => {
 exports.login = async (payload) => {
     const { email, password } = payload;
     const user = await User.findOne({ email: email.toString().toLowerCase(), deleted: false })
-    console.log("user====>", user)
-
     if (user && bcrypt.compareSync(password, user.password)) {
-        console.log('over here');
         const token = jwt.sign({ email: user.email }, TOKEN_KEY, { expiresIn: "24h" });
         const newToken = new Token({
             user: user._id,
@@ -89,7 +86,7 @@ exports.login = async (payload) => {
 
     return { login: false, token: null, message: 'Invalid crentials', data: user };
 }
-
+    
 exports.changePassword = async (payload) => {
     const { email, oldPassword, newPassword } = payload;
     const user = await User.findOne({ email: email.toString().toLowerCase() }).lean();
