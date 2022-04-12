@@ -1763,6 +1763,16 @@
                         "description": "The numbers of items to return"
                     },
                     {
+                        "in": "query",
+                        "name": "shopId",
+                        "example": "61f8efbefd5668a2990bcd4d",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false,
+                        "description": "The shop id"
+                    },
+                    {
                         "name": "userId",
                         "in": "path",
                         "description": "user id that need to be fetch for order",
