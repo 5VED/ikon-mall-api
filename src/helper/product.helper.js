@@ -702,27 +702,27 @@ exports.getProductItemsByShopAndCategory = async (params) => {
 }
 
 exports.rateProduct = async (payload) => {
-  const { productItemId, userId, star } = payload;
+  const { productItemId, userId, star,review } = payload;
   let rating = {};
   switch (star) {
     case 1: {
-      rating['1'] = { userId: userId };
+      rating['1'] = { userId: userId ,review:review };
       break;
     }
     case 2: {
-      rating['2'] = { userId: userId };
+      rating['2'] =  { userId: userId ,review:review };
       break;
     }
     case 3: {
-      rating['3'] = { userId: userId };
+      rating['3'] =  { userId: userId ,review:review };
       break;
     }
     case 4: {
-      rating['4'] = { userId: userId };
+      rating['4'] =  { userId: userId ,review:review };
       break;
     }
     case 5: {
-      rating['5'] = { userId: userId };
+      rating['5'] =  { userId: userId ,review:review };
       break;
     }
     default: {
