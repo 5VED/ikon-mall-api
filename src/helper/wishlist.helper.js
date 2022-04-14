@@ -48,7 +48,7 @@ exports.getWishlist = async (userId) => {
     })
     data[0].likedItems = data[0].likedItems.map(item => {
         item.productItem = data[0].Items.find(element => {
-            return item.productItemId.toString() === element._id.toString();
+            return item.productItemId?.toString() === element._id?.toString();
         })
         return item;
     })
