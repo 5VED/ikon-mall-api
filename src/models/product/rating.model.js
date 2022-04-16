@@ -7,9 +7,9 @@ const ratingSchema = new Schema({
         ref: 'productitems',
         required: true
     },
-    5: [{ 
-        userId: { 
-            type: Schema.Types.ObjectId, 
+    5: [{
+        userId: {
+            type: Schema.Types.ObjectId,
             ref: 'users'
         },
         orderId: {
@@ -17,16 +17,18 @@ const ratingSchema = new Schema({
             ref: 'orders'
         },
         review: {
-            type: String
+            type: String,
+            required: true,
+            default: '',
         },
-        ratedAt: { 
+        ratedAt: {
             type: Date,
-            default: Date.now 
+            default: Date.now
         }
     }],
-    4: [{ 
-        userId: { 
-            type: Schema.Types.ObjectId, 
+    4: [{
+        userId: {
+            type: Schema.Types.ObjectId,
             ref: 'users'
         },
         orderId: {
@@ -34,16 +36,18 @@ const ratingSchema = new Schema({
             ref: 'orders'
         },
         review: {
-            type: String
+            type: String,
+            required: true,
+            default: '',
         },
-        ratedAt: { 
+        ratedAt: {
             type: Date,
-            default: Date.now 
+            default: Date.now
         }
     }],
-    3: [{ 
-        userId: { 
-            type: Schema.Types.ObjectId, 
+    3: [{
+        userId: {
+            type: Schema.Types.ObjectId,
             ref: 'users'
         },
         orderId: {
@@ -51,16 +55,18 @@ const ratingSchema = new Schema({
             ref: 'orders'
         },
         review: {
-            type: String
+            type: String,
+            required: true,
+            default: '',
         },
-        ratedAt: { 
+        ratedAt: {
             type: Date,
-            default: Date.now 
+            default: Date.now
         }
     }],
-    2: [{ 
-        userId: { 
-            type: Schema.Types.ObjectId, 
+    2: [{
+        userId: {
+            type: Schema.Types.ObjectId,
             ref: 'users'
         },
         orderId: {
@@ -68,16 +74,18 @@ const ratingSchema = new Schema({
             ref: 'orders'
         },
         review: {
-            type: String
+            type: String,
+            required: true,
+            default: '',
         },
-        ratedAt: { 
+        ratedAt: {
             type: Date,
-            default: Date.now 
+            default: Date.now
         }
     }],
-    1: [{ 
-        userId: { 
-            type: Schema.Types.ObjectId, 
+    1: [{
+        userId: {
+            type: Schema.Types.ObjectId,
             ref: 'users'
         },
         orderId: {
@@ -85,11 +93,13 @@ const ratingSchema = new Schema({
             ref: 'orders'
         },
         review: {
-            type: String
+            type: String,
+            required: true,
+            default: '',
         },
-        ratedAt: { 
+        ratedAt: {
             type: Date,
-            default: Date.now 
+            default: Date.now
         }
     }]
 }, { versionKey: false });

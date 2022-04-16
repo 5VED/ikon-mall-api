@@ -21,5 +21,7 @@ router.post('/address', middleware.verifyToken, userController.AddUserAddress);
 router.delete('/address/:addressId', middleware.verifyToken, userController.DeleteAddress);
 router.put('/address/:addressId', middleware.verifyToken, userController.UpdateAddress);
 router.get('/address', middleware.verifyToken, userController.GetAllAddress);
+router.post('/card', middleware.verifyToken, userController.AddUserCard);
+router.get('/card/:userId', middleware.verifyToken, userController.GetAllCardByUserId);
 
 module.exports = router
