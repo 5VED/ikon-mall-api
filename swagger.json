@@ -157,6 +157,73 @@
                 }
             }
         },
+        "/brand/{brandId}": {
+            "delete": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Delete Brand by Id",
+                "description": "",
+                "operationId": "deleteBrand",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "brandId",
+                        "in": "path",
+                        "description": "ID of the address that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Updates brand",
+                "description": "",
+                "operationId": "updatebrand",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "brandId",
+                        "in": "path",
+                        "description": "brandId that need to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Updated brand object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Brand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid user supplied"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
         "/cart": {
             "post": {
                 "tags": [
@@ -1909,6 +1976,9 @@
                 "name"
             ],
             "properties": {
+                "name": {
+                    "type": "string"                    
+                },
                 "description": {
                     "type": "string"
                 },

@@ -1,6 +1,5 @@
 const { Brand } = require("../models/product/brand.model");
 const { ObjectId } = require("mongoose").Types;
-const logger = require("../../lib/logger");
 
 exports.getAllBrands = async (payload) => {
   const { skip, limit } = payload;
@@ -77,9 +76,29 @@ exports.getBrandsByShopAndCategory = async (
     .exec();
 };
 
-exports.addBrand = async (brandName) => {
+exports.addBrand = async (payload) => {
   const newBrand = new Brand({
-    name: brandName,
+    name: payload.name,
+    description: payload.description,
+    richDescription: payload.richDescription,
+    icon: payload.icon,
+    isDeleted: payload.isDeleted,
   });
+  console.log("brand===>",newBrand)
   return newBrand.save();
+};
+
+exports.getBrand = async (brandId) => {
+  return Brand.findById({ _id: brandId }).exec();
+};
+
+exports.deleteBrand = async (brandId) => {
+  return Brand.updateOne(
+    { _id: ObjectId(brandId.toString()) },
+    { $set: { isDeleted: true } }
+  );
+};
+
+exports.modifyBrand = async (brandId, name) => {
+  return Brand.updateOne({ _id: brandId }, { $set: { name: name } });
 };
