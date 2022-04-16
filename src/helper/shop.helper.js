@@ -374,8 +374,16 @@ exports.getShopData = async (shopId) => {
     {
       $match: { _id: ObjectId(shopId) },
     },
+    {
+      $addFields: {
+        onDate: {
+          $arrayElemAt: [
+            '$timings', new Date().getDay() - 1
+          ]
+        }
+      }
+    }
   ];
-
   return Shop.aggregate(query).exec();
 };
 

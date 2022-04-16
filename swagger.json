@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "localhost:5000/api",
+    "host": "ikon-app.herokuapp.com/api",
     "basePath": "/",
     "tags": [
         {
@@ -43,6 +43,14 @@
         {
             "name": "Vendor",
             "description": "API for Vendor"
+        },
+        {
+            "name": "Order",
+            "description": "API for Order"
+        },
+        {
+            "name": "FAQ",
+            "description": "API for FAQ"
         }
     ],
     "schemes": [
@@ -940,6 +948,78 @@
                 }
             }
         },
+        "/user/card": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "adde card for user",
+                "description": "This can only be done by the logged in user.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "card object that needs to be added",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Card"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/user/card/{userId}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "get user card list",
+                "description": "This can only be done by the logged in user.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "userId that need to be fetch",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Token Required"
+                    },
+                    "401": {
+                        "description": "Invalid Token"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
         "/shop": {
             "get": {
                 "tags": [
@@ -1587,10 +1667,42 @@
                 }
             }
         },
+        "/product-item/{id}": {
+            "get": {
+                "tags": [
+                    "Product-Item"
+                ],
+                "summary": "returns product-items details",
+                "description": "returns product-item details",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "product item id that need to be fetch",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Pet not found"
+                    }
+                }
+            }
+        },
         "/order": {
             "post": {
                 "tags": [
-                    "order"
+                    "Order"
                 ],
                 "summary": "Create Order of User",
                 "description": "It created Order for users and shops",
@@ -1598,7 +1710,7 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Add order for shop or user",
+                        "description": "Add order for user",
                         "schema": {
                             "$ref": "#/definitions/Order"
                         }
@@ -1622,9 +1734,176 @@
                     }
                 }
             }
+        },
+        "/order/{userId}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get the user order history",
+                "description": "Get the user order history",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "example": 20,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "The numbers of items to return"
+                    },
+                    {
+                        "in": "query",
+                        "name": "shopId",
+                        "example": "61f8efbefd5668a2990bcd4d",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false,
+                        "description": "The shop id"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "user id that need to be fetch for order",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Orders fetched Succesfully"
+                    },
+                    "400": {
+                        "description": "A token is required for authentication"
+                    },
+                    "401": {
+                        "description": "Invalid token"
+                    },
+                    "500": {
+                        "description": "Error in placing order"
+                    }
+                }
+            }
+        },
+        "/faq": {
+            "post": {
+                "tags": [
+                    "FAQ"
+                ],
+                "summary": "Add new Question",
+                "description": "It add's new question which is asked frequently",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Add question for user",
+                        "schema": {
+                            "$ref": "#/definitions/FAQ"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Question Added Succesfully"
+                    },
+                    "500": {
+                        "description": "Error in adding Question"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "FAQ"
+                ],
+                "summary": "returns all vendors",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of items to skip before starting to collect the result set"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The numbers of items to return"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "FAQ's fetched Succesfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/FAQ"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "FAQ": {
+            "required": [
+                "userId",
+                "shopId",
+                "category",
+                "question",
+                "answer"
+            ],
+            "properties": {
+                "userId": {
+                    "type": "string",
+                    "example": "620f3fed199444f7bc02a143"
+                },
+                "shopId": {
+                    "type": "string",
+                    "example": "620ccebf672a910fcf97ec2f"
+                },
+                "category": {
+                    "type": "string",
+                    "example": "Shipping"
+                },
+                "question": {
+                    "type": "string",
+                    "example": "How Long does it take?"
+                },
+                "answer": {
+                    "type": "string",
+                    "example": "At Max 2 Hrs"
+                }
+            }
+        },
         "Brand": {
             "required": [
                 "name"
@@ -1641,19 +1920,53 @@
                 }
             }
         },
-        "Order": {
+        "OrderItem": {
             "required": [
-                "paymentMethod"
+                "productItemId",
+                "quantity",
+                "price"
             ],
             "properties": {
-                "orderTotal": {
+                "productItemId": {
+                    "type": "string"
+                },
+                "quantity": {
                     "type": "number"
                 },
-                "paymentMethod": {
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "Order": {
+            "required": [
+                "paymentMode",
+                "shippingAddress",
+                "userId",
+                "shopId",
+                "productItems"
+            ],
+            "properties": {
+                "paymentMode": {
                     "type": "string"
                 },
-                "orderStatus": {
+                "shippingAddress": {
                     "type": "string"
+                },
+                "userId": {
+                    "type": "string"
+                },
+                "shopId": {
+                    "type": "string"
+                },
+                "transactionId ": {
+                    "type": "string"
+                },
+                "productItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderItem"
+                    }
                 }
             }
         },
@@ -1870,6 +2183,42 @@
                 "vendorId": {
                     "type": "string",
                     "example": "61fe18829af8fd2eab57d7a1"
+                }
+            }
+        },
+        "Card": {
+            "required": [
+                "cardNumber",
+                "validThrough",
+                "CVV",
+                "nameOnCard",
+                "CardNickName",
+                "userId"
+            ],
+            "properties": {
+                "cardNumber": {
+                    "type": "string",
+                    "example": "123456123456"
+                },
+                "validThrough": {
+                    "type": "string",
+                    "example": "25/24"
+                },
+                "CVV": {
+                    "type": "number",
+                    "example": 452
+                },
+                "nameOnCard": {
+                    "type": "number",
+                    "example": "shubham agarwal"
+                },
+                "CardNickName": {
+                    "type": "string",
+                    "example": "shubham"
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "620f3fed199444f7bc02a143"
                 }
             }
         },

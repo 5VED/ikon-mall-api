@@ -74,7 +74,8 @@ exports.processDataForUpload = async (data) => {
                 costPrice: parseFloat(item.CostPrice),
                 mrp: parseFloat(item.Mrp),
                 dateModified: Date.now(),
-                quantity: item.Quantity
+                quantity: item.Quantity,
+                specification: getSpecification(item)
               }
             }
           );
@@ -91,7 +92,8 @@ exports.processDataForUpload = async (data) => {
             brand: brandId,
             product: productId,
             vendor: item.Vendor,
-            shop: item.Shop
+            shop: item.Shop,
+            specification: getSpecification(item)
           });
           const result = await newProductItem.save();
           responseArr.push({ action: 'inserted', name: result.name, _id: result._id });
@@ -700,27 +702,27 @@ exports.getProductItemsByShopAndCategory = async (params) => {
 }
 
 exports.rateProduct = async (payload) => {
-  const { productItemId, userId, star } = payload;
+  const { productItemId, userId, star,review } = payload;
   let rating = {};
   switch (star) {
     case 1: {
-      rating['1'] = { userId: userId };
+      rating['1'] = { userId: userId ,review:review };
       break;
     }
     case 2: {
-      rating['2'] = { userId: userId };
+      rating['2'] =  { userId: userId ,review:review };
       break;
     }
     case 3: {
-      rating['3'] = { userId: userId };
+      rating['3'] =  { userId: userId ,review:review };
       break;
     }
     case 4: {
-      rating['4'] = { userId: userId };
+      rating['4'] =  { userId: userId ,review:review };
       break;
     }
     case 5: {
-      rating['5'] = { userId: userId };
+      rating['5'] =  { userId: userId ,review:review };
       break;
     }
     default: {
@@ -918,4 +920,15 @@ exports.getProductItemsByShop = async (params) => {
       }
     ]
   ).exec();
+}
+
+const getSpecification = (row) => {
+  const removeFixedColumn = ['ProductName', 'ProductItemName', 'Category', 'Brand', 'Size', 'Color', 'Quantity', 'Mrp', 'SellerPrice', 'CostPrice', 'Shop', 'Vendor'];
+  //remove empty specification and default values
+  Object.keys(row).forEach(element => {
+    if (row[element] === '' || removeFixedColumn.indexOf(element) !== -1) {
+      delete row[element];
+    }
+  });
+  return row;
 }

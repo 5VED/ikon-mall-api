@@ -42,10 +42,9 @@ exports.getUserOrders = async (req, res) => {
     const userId = req.params.userId;
     const skip = req.query.skip;
     const limit = req.query.limit;
+    const shopId = req.query.shopId;
 
-    const order = await orderHelper.getOrdersByUserId(userId, skip, limit);
-
-    // console.log(order[0].orderStatus);
+    const order = await orderHelper.getOrdersByUserId(userId, skip, limit, shopId);
     return res
       .status(StatusCodes.OK)
       .json({ message: "Orders fetched Succesfully", orders: order });

@@ -29,7 +29,7 @@ exports.removeFromWishlist = async (payload) => {
 }
 
 exports.getWishlist = async (userId) => {
-    return Wishlist.aggregate([
+    const data = await Wishlist.aggregate([
         {
             '$match': { userId: ObjectId(userId) }
         },
@@ -40,11 +40,18 @@ exports.getWishlist = async (userId) => {
                 'foreignField': '_id',
                 'as': 'Items'
             }
-        },
-        {
-            '$project': {
-                'likedItems': 0
-            }
         }
     ]).exec();
+
+    data[0].likedItems = data[0].likedItems.sort((a, b) => {
+        return new Date(b.wishlistedAt) - new Date(a.wishlistedAt);
+    })
+    data[0].likedItems = data[0].likedItems.map(item => {
+        item.productItem = data[0].Items.find(element => {
+            return item.productItemId?.toString() === element._id?.toString();
+        })
+        return item;
+    })
+    delete data[0].Items
+    return data;
 }

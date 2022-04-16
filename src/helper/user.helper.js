@@ -1,4 +1,4 @@
-const { Address, User, Token } = require('../models/index');
+const { Address, User, Token, Card } = require('../models/index');
 const { USER, TOKEN_KEY } = require("../../lib/constant");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -71,12 +71,9 @@ exports.signup = async (payload) => {
 }
 
 exports.login = async (payload) => {
-     const { email, password } = payload;
-     const user = await User.findOne({ email: email.toString().toLowerCase(),deleted:false})
-     console.log("user====>",user)
-
-    if (user &&  bcrypt.compareSync(password, user.password)) {
-        console.log('over here');
+    const { email, password } = payload;
+    const user = await User.findOne({ email: email.toString().toLowerCase(), deleted: false })
+    if (user && bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign({ email: user.email }, TOKEN_KEY, { expiresIn: "24h" });
         const newToken = new Token({
             user: user._id,
@@ -84,12 +81,12 @@ exports.login = async (payload) => {
             token: token
         });
         await newToken.save();
-        return { login: true, token: token, message: 'Login successful' };
+        return { login: true, token: token, message: 'Login successful', data: user };
     }
 
-    return { login: false, token: null, message: 'Invalid crentials' };
+    return { login: false, token: null, message: 'Invalid crentials', data: user };
 }
-
+    
 exports.changePassword = async (payload) => {
     const { email, oldPassword, newPassword } = payload;
     const user = await User.findOne({ email: email.toString().toLowerCase() }).lean();
@@ -126,4 +123,25 @@ exports.verifyOtp = async (payload) => {
         return { verified: true, message: 'User verification successful' }
     }
     return { verified: false, message: 'User not verified' };
+}
+
+exports.saveCard = async (payload) => {
+    const card = new Card({
+        cardNumber: payload.cardNumber,
+        validThrough: payload.validThrough,
+        CVV: payload.CVV,
+        nameOnCard: payload.nameOnCard,
+        CardNickName: payload.CardNickName,
+        userId: payload.userId
+    });
+    const error = await card.validate();
+    if (error) {
+        throw error;
+    } else {
+        return card.save();
+    }
+}
+
+exports.getAllCardByUserId = async (userId) => {
+    return Card.find({ deleted: false, userId: userId.toString() }).exec();
 }
