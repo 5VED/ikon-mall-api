@@ -21,7 +21,7 @@ exports.removeFromWishlist = async (payload) => {
             : { 'likedShops': { shop: payload.shopId } },
         '$set': { 'modifiedAt': Date.now() }
     };
-    const result = await Wishlist.findOneAndUpdate(filter, update, { new: true, upsert: true });
+    const result = await Wishlist.findOneAndUpdate(filter, update);
     if (result.likedItems.length === 0 && result.likedShops.length === 0) {
         await Wishlist.deleteOne({ userId: payload.userId.toString() });
     }
@@ -48,7 +48,7 @@ exports.getWishlist = async (userId) => {
     })
     data[0].likedItems = data[0].likedItems.map(item => {
         item.productItem = data[0].Items.find(element => {
-            return item.productItemId?.toString() === element._id?.toString();
+            return item.productItemId.toString() === element._id.toString();
         })
         return item;
     })

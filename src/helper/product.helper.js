@@ -5,6 +5,8 @@ const brandHelper = require("./brand.helper");
 const { Brand } = require("../models/product/brand.model");
 const { ObjectId } = require('mongoose').Types;
 const { ProductRating, Category } = require("../models/index");
+const SizeUnit = require('../models/sizeunit.model');
+const SizeUnitValue = require('../models/sizeunitvalue.model');
 
 exports.processDataForUpload = async (data) => {
   try {
@@ -12,7 +14,7 @@ exports.processDataForUpload = async (data) => {
     const products = (await Product.find({}, 'name category').lean().exec()).map(product => { return { ...product, name: product.name.toLowerCase() } });
     const categories = (await Category.find({}, 'name').lean().exec()).map(category => { return { ...category, name: category.name.toLowerCase() } });
     const brands = (await Brand.find({}, 'name').lean().exec()).map(brand => { return { ...brand, name: brand.name.toLowerCase() } });
-    const sizes = (await db.sizeunitvalues.aggregate([{
+    const sizes = (await SizeUnitValue.aggregate([{
       $lookup: {
         from: 'sizeunits',
         localField: 'unitId',
@@ -51,7 +53,36 @@ exports.processDataForUpload = async (data) => {
         /**
          * check if size exists
          */
-        const sizeId = sizes.find(sizeElement => sizeElement.unitValue == item.Size && sizeElement.unit == item.SizeUnit)._id;
+        const size = sizes.find(sizeElement => sizeElement.unitValue == item.Size && sizeElement.SIZEUNIT.unit.toLowerCase() == item.Unit.toLowerCase());
+        let sizeId;
+        if (!size) {
+          /**
+           * check if unit exists
+           */
+          const sizeUnit = await SizeUnit.findOne({unit: item.Unit.toLowerCase()});
+          if (sizeUnit) {
+            /**
+             * unit exists so inserting into sizeunitvalues collection
+             */
+            const newUnitValue = await new SizeUnitValue({
+              unitId: sizeUnit._id,
+              unitValue: item.Size.toLowerCase()
+            }).save();
+            sizeId = newUnitValue._id;
+          } else {
+            /**
+             * size unit not exists therefore entering new unit ans new sizeUnitValue
+             */
+            const newSizeUnit = await new SizeUnit({unit: item.Unit.toLowerCase()}).save();
+            const newSizeUnitValue = await new SizeUnitValue({
+              unitId: newSizeUnit._id,
+              unitValue: item.Size.toLowerCase()
+            }).save();
+            sizeId = newSizeUnitValue._id;
+          }
+        } else {
+          sizeId = size._id;
+        }
 
         const brandId = brand ? brand._id : brands.find(el => el.name === item.Brand.toLowerCase())._id;
         const productId = product ? product._id : products.find(productElement => productElement.name === item.ProductName.toLowerCase() && productElement.category.toString() === categoryId.toString())._id;
@@ -203,48 +234,7 @@ exports.getProductItemAndProductById = async (id) => {
       },
     },
     { $match: { _id: ObjectId(id) } },
-    {
-      $lookup: {
-        from: 'sizeunitvalues',
-        let: { 'size': '$size' },
-        pipeline: [
-          {
-            $match: { $expr: { $eq: ['$_id', '$$size'] } }
-          },
-          {
-            $lookup: {
-              from: 'sizeunits',
-              let: { 'unitId': '$unitId' },
-              pipeline: [
-                {
-                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
-                }
-              ],
-              'as': 'SIZEUNIT'
-            }
-          },
-          {
-            $unwind: "$SIZEUNIT"
-          }
-        ],
-        as: 'SIZEVALUE'
-      }
-    },
-    {
-      $unwind: "$SIZEVALUE"
-    },
-
-    {
-      $addFields: {
-        unitSize: '$SIZEVALUE.unitValue',
-        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
-      }
-    },
-    {
-      $project: {
-        SIZEVALUE: 0
-      }
-    }
+    ...this.aggregatePipelineGenerator()
   ]).limit(1);
 
 
@@ -292,48 +282,7 @@ exports.getProductItemAndProductById = async (id) => {
         _id: { $ne: ObjectId(id) }
       }
     },
-    {
-      $lookup: {
-        from: 'sizeunitvalues',
-        let: { 'size': '$size' },
-        pipeline: [
-          {
-            $match: { $expr: { $eq: ['$_id', '$$size'] } }
-          },
-          {
-            $lookup: {
-              from: 'sizeunits',
-              let: { 'unitId': '$unitId' },
-              pipeline: [
-                {
-                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
-                }
-              ],
-              'as': 'SIZEUNIT'
-            }
-          },
-          {
-            $unwind: "$SIZEUNIT"
-          }
-        ],
-        as: 'SIZEVALUE'
-      }
-    },
-    {
-      $unwind: "$SIZEVALUE"
-    },
-
-    {
-      $addFields: {
-        unitSize: '$SIZEVALUE.unitValue',
-        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
-      }
-    },
-    {
-      $project: {
-        SIZEVALUE: 0
-      }
-    }
+    ...this.aggregatePipelineGenerator()
   ]);
   productItem.colorList = [];
   productItem.colorSizeList.map((item) => {
@@ -517,51 +466,7 @@ exports.getProductItemsWithFilters = async (payload) => {
     aggregateQuery = [...aggregateQuery, sortquery];
   }
 
-  aggregateQuery.push(
-    {
-      $lookup: {
-        from: 'sizeunitvalues',
-        let: { 'size': '$size' },
-        pipeline: [
-          {
-            $match: { $expr: { $eq: ['$_id', '$$size'] } }
-          },
-          {
-            $lookup: {
-              from: 'sizeunits',
-              let: { 'unitId': '$unitId' },
-              pipeline: [
-                {
-                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
-                }
-              ],
-              'as': 'SIZEUNIT'
-            }
-          },
-          {
-            $unwind: "$SIZEUNIT"
-          }
-        ],
-        as: 'SIZEVALUE'
-      }
-    },
-    {
-      $unwind: "$SIZEVALUE"
-    },
-
-    {
-      $addFields: {
-        unitSize: '$SIZEVALUE.unitValue',
-        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
-      }
-    },
-    {
-      $project: {
-        size: 0,
-        SIZEVALUE: 0
-      }
-    }
-  );
+  aggregateQuery = [...aggregateQuery, ...this.aggregatePipelineGenerator()];
   return ProductItem.aggregate(aggregateQuery).skip(Number(payload.skip)).limit(Number(payload.limit)).exec();
 }
 
@@ -653,51 +558,7 @@ exports.getProductItemsByShopAndCategory = async (params) => {
   } else {
     query.push({ '$addFields': { 'isLiked': false } });
   }
-  query.push(
-    {
-      $lookup: {
-        from: 'sizeunitvalues',
-        let: { 'size': '$size' },
-        pipeline: [
-          {
-            $match: { $expr: { $eq: ['$_id', '$$size'] } }
-          },
-          {
-            $lookup: {
-              from: 'sizeunits',
-              let: { 'unitId': '$unitId' },
-              pipeline: [
-                {
-                  $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
-                }
-              ],
-              'as': 'SIZEUNIT'
-            }
-          },
-          {
-            $unwind: "$SIZEUNIT"
-          }
-        ],
-        as: 'SIZEVALUE'
-      }
-    },
-    {
-      $unwind: "$SIZEVALUE"
-    },
-
-    {
-      $addFields: {
-        unitSize: '$SIZEVALUE.unitValue',
-        unitValue: "$SIZEVALUE.SIZEUNIT.unit"
-      }
-    },
-    {
-      $project: {
-        size: 0,
-        SIZEVALUE: 0
-      }
-    }
-  )
+  query.push(...this.aggregatePipelineGenerator());
   return ProductItem.aggregate(query).skip(Number(skip)).limit(Number(limit)).exec();
 }
 
@@ -841,49 +702,7 @@ exports.getProductItemsByShop = async (params) => {
                 'wishlist': 0
               }
             },
-            {
-              $lookup: {
-                from: 'sizeunitvalues',
-                let: { 'size': '$size' },
-                pipeline: [
-                  {
-                    $match: { $expr: { $eq: ['$_id', '$$size'] } }
-                  },
-                  {
-                    $lookup: {
-                      from: 'sizeunits',
-                      let: { 'unitId': '$unitId' },
-                      pipeline: [
-                        {
-                          $match: { $expr: { $eq: ['$_id', '$$unitId'] } }
-                        }
-                      ],
-                      'as': 'SIZEUNIT'
-                    }
-                  },
-                  {
-                    $unwind: "$SIZEUNIT"
-                  }
-                ],
-                as: 'SIZEVALUE'
-              }
-            },
-            {
-              $unwind: "$SIZEVALUE"
-            },
-
-            {
-              $addFields: {
-                unitSize: '$SIZEVALUE.unitValue',
-                unitValue: "$SIZEVALUE.SIZEUNIT.unit"
-              }
-            },
-            {
-              $project: {
-                size: 0,
-                SIZEVALUE: 0
-              }
-            },
+            ...this.aggregatePipelineGenerator(),
             {
               '$sort': sort
             },
@@ -931,4 +750,53 @@ const getSpecification = (row) => {
     }
   });
   return row;
+}
+/**
+ * 
+ * @returns size lookup
+ */
+exports.aggregatePipelineGenerator = () => {
+  return [
+    {
+      '$lookup': {
+        'from': 'sizeunitvalues',
+        'let': { 'size': '$size' },
+        'pipeline': [
+          {
+            '$match': { '$expr': { '$eq': ['$_id', '$$size'] } }
+          },
+          {
+            '$lookup': {
+              'from': 'sizeunits',
+              'let': { 'unitId': '$unitId' },
+              'pipeline': [
+                {
+                  '$match': { '$expr': { '$eq': ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            '$unwind': "$SIZEUNIT"
+          }
+        ],
+        'as': 'SIZEVALUE'
+      }
+    },
+    {
+      '$unwind': "$SIZEVALUE"
+    },
+    {
+      '$addFields': {
+        'unitSize': '$SIZEVALUE.unitValue',
+        'unitValue': "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      '$project': {
+        'SIZEVALUE': 0
+      }
+    }
+  ]
 }

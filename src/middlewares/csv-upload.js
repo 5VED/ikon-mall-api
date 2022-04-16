@@ -21,5 +21,6 @@ const csvFilter = (req, file, cb) => {
         cb("Please upload only csv file.", false);
     }
 };
-const upload = multer({ storage: storage, fileFilter: csvFilter });
+
+const upload = multer({ storage: storage, fileFilter: csvFilter, limits: { fileSize: 800000 } });
 module.exports = upload;
