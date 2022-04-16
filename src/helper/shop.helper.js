@@ -6,9 +6,8 @@ exports.addShop = async (payload) => {
     shopName: payload.shopName,
     desc: payload.desc,
     categoryId: payload.categoryId,
-    openTime: payload.openTime,
-    closeTime: payload.closeTime,
     rating: payload.rating,
+    reviews: payload.reviews,
     isPrimeShop: payload.isPrimeShop,
     location: {
       type: "Point",
@@ -19,6 +18,7 @@ exports.addShop = async (payload) => {
     shopImage: req.files.shopImage[0].path,
     shopLogo: req.files.shopLogo[0].path,
   });
+
   return shop.save();
 };
 
@@ -210,6 +210,41 @@ exports.getShop = async (params) => {
     ];
   }
 
+  if (params.reviews) {
+    aggregateQuery = [
+      ...aggregateQuery,
+      {
+        $match: { shopId: ObjectId(params.shopId) },
+      },
+      {
+        $lookup: {
+          from: "shopratings",
+          localField: "_id",
+          foreignField: "shopId",
+          as: "REVIEWS",
+        },
+      },
+      {
+        $unwind: "$REVIEWS",
+      },
+
+      {
+        $project: {
+          _id: 1,
+          reviews: {
+            $add: [
+              { $size: "$REVIEWS.1" },
+              { $size: "$REVIEWS.2" },
+              { $size: "$REVIEWS.3" },
+              { $size: "$REVIEWS.4" },
+              { $size: "$REVIEWS.5" },
+            ],
+          },
+        },
+      },
+    ];
+  }
+
   aggregateQuery = [
     ...aggregateQuery,
     {
@@ -266,7 +301,45 @@ exports.getShop = async (params) => {
         wishlist: 0,
       },
     },
+    {
+      $lookup: {
+        from: "shopratings",
+        localField: "_id",
+        foreignField: "shopId",
+        as: "reviews",
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        name: "$shopName",
+        bgImage: "$shopImage",
+        logo: "$shopLogo",
+        location: "$location",
+        rating: "$rating",
+        open: { $ifNull: ["$onDate.open", "closed"] },
+        close: { $ifNull: ["$onDate.close", "closed"] },
+        desc: "$desc",
+        reviews: {
+          $reduce: {
+            input: "$reviews",
+            initialValue: 0,
+            in: {
+              $add: [
+                "$$value",
+                { $size: "$$this.1" },
+                { $size: "$$this.2" },
+                { $size: "$$this.3" },
+                { $size: "$$this.4" },
+                { $size: "$$this.5" },
+              ],
+            },
+          },
+        },
+      },
+    },
   ];
+
   return Shop.aggregate(aggregateQuery)
     .skip(Number(params.skip))
     .limit(Number(params.limit))
@@ -324,6 +397,7 @@ exports.rateShop = async (payload) => {
   await Shop.findByIdAndUpdate(shopId, {
     $set: { rating: weightedAverage },
   }).exec();
+
   return result;
 };
 
@@ -377,12 +451,10 @@ exports.getShopData = async (shopId) => {
     {
       $addFields: {
         onDate: {
-          $arrayElemAt: [
-            '$timings', new Date().getDay() - 1
-          ]
-        }
-      }
-    }
+          $arrayElemAt: ["$timings", new Date().getDay() - 1],
+        },
+      },
+    },
   ];
   return Shop.aggregate(query).exec();
 };

@@ -27,7 +27,7 @@ exports.AddShop = async (req, res) => {
   try {
     const payload = req.body;
     const result = await shopHelper.addShop(payload);
-    logger.info("Shop added successfully");
+     logger.info("Shop added successfully");
     return res
       .status(StatusCodes.OK)
       .send({ data: result, message: "Shop added successfully" });

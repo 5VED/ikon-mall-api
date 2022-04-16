@@ -37,6 +37,7 @@ app.use('/api/faq', routes.faq);
 
 // Connect to Mongoose and set connection variable
 mongoose.connect('mongodb+srv://test-user:test-user@cluster0.unxi0.mongodb.net/iKonMall?retryWrites=true&w=majority', { useNewUrlParser: true });
+
 // Heroku Mongoose connection
 var dbMongoose = mongoose.connection;
 // Added check for DB connection

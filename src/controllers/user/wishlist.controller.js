@@ -5,7 +5,10 @@ const logger = require("../../../lib/logger");
 exports.addToWishlist = async (req, res) => {
   try {
     const payload = req.body;
+
+
     const result = await wishlistHelper.addToWishlist(payload);
+    console.log("result==>",result)
     logger.info("Item added to wishlist");
     return res.status(StatusCodes.OK).send({
       data: result,

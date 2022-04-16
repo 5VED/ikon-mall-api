@@ -1,7 +1,7 @@
 const { Category } = require('../models/index');
 const { ProductItem } = require('../models/product/productItem.model');
 const { ObjectId } = require('mongoose').Types;
-
+const multer = require('multer');
 
 exports.getAllCategory = async (params) => {
     const { skip, limit } = params;
