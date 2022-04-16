@@ -22,5 +22,7 @@ router.post('/rating', middleware.verifyToken, shopValidator.RateShopValidator, 
 router.get('/rating', shopController.GetShopRatingsByShopId);
 router.put('/:shopId', shopController.EditShop);
 router.delete('/:shopId', shopController.DeleteShop);
+ router.get('/:shopId', shopController.getShop);
+router.get('/brand/:shopId', shopController.getShopBrands);
 
 module.exports = router;
