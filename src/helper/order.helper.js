@@ -19,7 +19,7 @@ exports.placeOrder = async (payload) => {
         productItemId: element.productItemId,
         quantity: element.quantity,
         orderId: order._id,
-        price:element.price
+        price: element.price
       });
       await productItems.save();
     });
@@ -66,10 +66,15 @@ exports.getOrdersByShopId = async (shopId, skip, limit) => {
 };
 
 //Returns the order from the same user
-exports.getOrdersByUserId = async (userId, skip, limit) => {
+exports.getOrdersByUserId = async (userId, skip, limit, shopId) => {
+  const match = { userId: ObjectId(userId) };
+  if (shopId) {
+    match.shopId = ObjectId(shopId)
+  }
+
   const query = [
     {
-      $match: { userId: ObjectId(userId) },
+      $match: match
     },
     {
       $lookup: {
@@ -94,6 +99,45 @@ exports.getOrdersByUserId = async (userId, skip, limit) => {
           }
         ],
         as: 'ordersitems'
+      }
+    },
+    {
+      $lookup: {
+        from: 'shops',
+        localField: 'shopId',
+        foreignField: '_id',
+        as: 'shopInfo'
+      }
+    },
+    {
+      $unwind: {
+        path: '$shopInfo'
+      }
+    },
+    {
+      $lookup: {
+        from: 'addresses',
+        localField: 'shippingAddress',
+        foreignField: '_id',
+        as: 'shippingAddressInfo'
+      }
+    },
+    {
+      $unwind: {
+        path: '$shippingAddressInfo'
+      }
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'userIdInfo'
+      }
+    },
+    {
+      $unwind: {
+        path: '$userIdInfo'
       }
     },
     { $sort: { orderedAt: -1 } },

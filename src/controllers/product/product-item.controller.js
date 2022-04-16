@@ -47,12 +47,20 @@ exports.getProductItemAndProduct = async (req, res) => {
 };
 
 exports.getProductItemAndProductById = async (req, res) => {
-  
-  const data = await productHelper.getProductItemAndProductById(req.params.id);
-  res.status(statusCodes.OK).send({
-    message: "Product Item detail fetched successfully!",
-    data: data,
-  });
+  try {
+    const data = await productHelper.getProductItemAndProductById(req.params.id);
+    logger.info('Product Item detail fetched successfully!');
+    return res.status(statusCodes.OK).send({
+      message: "Product Item detail fetched successfully!",
+      data: data,
+    });
+  } catch (error) {
+    logger.error(`Error in getting Product Item:: ${error.message}`);
+    return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
+      message: 'Error in getting Product Item',
+      error: error.message
+    })
+  }
 };
 
 exports.getProductItemWithFilter = async (req, res) => {
