@@ -27,6 +27,5 @@ exports.deleteVendor = async (vendorId) => {
 
 exports.modifyVendor = async (vendorId, payload) => {
   payload = { ...payload };
-  console.log(payload);
   return Vendor.updateOne({ _id: vendorId }, { $set: payload });
 };
