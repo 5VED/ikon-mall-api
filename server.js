@@ -7,6 +7,7 @@ const { HOST, DATABASE, MONGODB_PORT, NODE_PORT, MONGODB_URL } = require('./conf
 const routes = require('./src/routes/index');
 const swaggerUI = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const { route } = require('./src/routes/product-item/product-item.route');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/brand', routes.brand);
 app.use('/api/wishlist', routes.wishlist);
 app.use('/api/order', routes.order);
 app.use('/api/faq', routes.faq);
+app.use('/api/sizeUnit',routes.sizeUnit)
 
 
 // Connect to Mongoose and set connection variable

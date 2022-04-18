@@ -10,5 +10,6 @@ route.wishlist = require("./user/wishlist.route");
 route.user = require("./user/user.route");
 route.order = require("./orders/orders.route");
 route.faq = require("./faq/faq.route");
+route.sizeUnit = require('./sizeUnit.route')
 
 module.exports = route;
