@@ -5,6 +5,8 @@ const brandHelper = require("./brand.helper");
 const { Brand } = require("../models/product/brand.model");
 const { ObjectId } = require('mongoose').Types;
 const { ProductRating, Category } = require("../models/index");
+const SizeUnit = require('../models/sizeunit.model');
+const SizeUnitValue = require('../models/sizeunitvalue.model');
 
 exports.processDataForUpload = async (data) => {
   try {
@@ -12,6 +14,18 @@ exports.processDataForUpload = async (data) => {
     const products = (await Product.find({}, 'name category').lean().exec()).map(product => { return { ...product, name: product.name.toLowerCase() } });
     const categories = (await Category.find({}, 'name').lean().exec()).map(category => { return { ...category, name: category.name.toLowerCase() } });
     const brands = (await Brand.find({}, 'name').lean().exec()).map(brand => { return { ...brand, name: brand.name.toLowerCase() } });
+    const sizes = (await SizeUnitValue.aggregate([{
+      $lookup: {
+        from: 'sizeunits',
+        localField: 'unitId',
+        foreignField: '_id',
+        as: 'SIZEUNIT'
+      }
+    },
+    {
+      $unwind: '$SIZEUNIT'
+    }
+    ]));
     for (const item of data) {
       try {
         //check if category exist
@@ -36,12 +50,46 @@ exports.processDataForUpload = async (data) => {
           products.push({ _id: newProduct._id, name: newProduct.name.toLowerCase(), category: categoryId });
         }
 
+        /**
+         * check if size exists
+         */
+        const size = sizes.find(sizeElement => sizeElement.unitValue == item.Size && sizeElement.SIZEUNIT.unit.toLowerCase() == item.Unit.toLowerCase());
+        let sizeId;
+        if (!size) {
+          /**
+           * check if unit exists
+           */
+          const sizeUnit = await SizeUnit.findOne({unit: item.Unit.toLowerCase()});
+          if (sizeUnit) {
+            /**
+             * unit exists so inserting into sizeunitvalues collection
+             */
+            const newUnitValue = await new SizeUnitValue({
+              unitId: sizeUnit._id,
+              unitValue: item.Size.toLowerCase()
+            }).save();
+            sizeId = newUnitValue._id;
+          } else {
+            /**
+             * size unit not exists therefore entering new unit ans new sizeUnitValue
+             */
+            const newSizeUnit = await new SizeUnit({unit: item.Unit.toLowerCase()}).save();
+            const newSizeUnitValue = await new SizeUnitValue({
+              unitId: newSizeUnit._id,
+              unitValue: item.Size.toLowerCase()
+            }).save();
+            sizeId = newSizeUnitValue._id;
+          }
+        } else {
+          sizeId = size._id;
+        }
+
         const brandId = brand ? brand._id : brands.find(el => el.name === item.Brand.toLowerCase())._id;
         const productId = product ? product._id : products.find(productElement => productElement.name === item.ProductName.toLowerCase() && productElement.category.toString() === categoryId.toString())._id;
         const productItem = await ProductItem.findOne(
           {
             color: item.Color,
-            size: item.Size,
+            size: sizeId,
             brand: brandId.toString(),
             product: productId.toString(),
             shop: item.Shop,
@@ -57,7 +105,8 @@ exports.processDataForUpload = async (data) => {
                 costPrice: parseFloat(item.CostPrice),
                 mrp: parseFloat(item.Mrp),
                 dateModified: Date.now(),
-                quantity: item.Quantity
+                quantity: item.Quantity,
+                specification: getSpecification(item)
               }
             }
           );
@@ -66,7 +115,7 @@ exports.processDataForUpload = async (data) => {
           const newProductItem = new ProductItem({
             name: item.ProductItemName,
             color: item.Color,
-            size: item.Size,
+            size: sizeId,
             sellerPrice: parseFloat(item.SellerPrice),
             costPrice: parseFloat(item.CostPrice),
             mrp: parseFloat(item.Mrp),
@@ -74,7 +123,8 @@ exports.processDataForUpload = async (data) => {
             brand: brandId,
             product: productId,
             vendor: item.Vendor,
-            shop: item.Shop
+            shop: item.Shop,
+            specification: getSpecification(item)
           });
           const result = await newProductItem.save();
           responseArr.push({ action: 'inserted', name: result.name, _id: result._id });
@@ -183,22 +233,12 @@ exports.getProductItemAndProductById = async (id) => {
         as: "review_info",
       },
     },
-    { $match: { _id: ObjectId(id) } }
+    { $match: { _id: ObjectId(id) } },
+    ...this.aggregatePipelineGenerator()
   ]).limit(1);
 
 
   productItem = productItem.map((item) => {
-    item.images = item.images.map((element) => {
-      element =
-        "https://icon-mall.herokuapp.com/uploads/products/" +
-        item.product +
-        "/" +
-        item._id +
-        "/" +
-        element;
-      return element;
-    });
-
     if (item.review_info.length > 0) {
       item.review_info = item.review_info[0];
       item.review_info["1"].map((element, index) => {
@@ -241,7 +281,8 @@ exports.getProductItemAndProductById = async (id) => {
         name: productItem.name,
         _id: { $ne: ObjectId(id) }
       }
-    }
+    },
+    ...this.aggregatePipelineGenerator()
   ]);
   productItem.colorList = [];
   productItem.colorSizeList.map((item) => {
@@ -252,7 +293,7 @@ exports.getProductItemAndProductById = async (id) => {
   productItem.sizeList = []
   productItem.colorSizeList.map((item) => {
     if (!productItem.sizeList.find(x => x.size === item.size)) {
-      productItem.sizeList.push({ size: item.size, id: item._id });
+      productItem.sizeList.push({ sizeId: item.size, size: item.unitSize, unit: item.unitValue, id: item._id });
     }
   })
   return productItem;
@@ -424,6 +465,8 @@ exports.getProductItemsWithFilters = async (payload) => {
   if (Object.keys(sortquery).length > 0) {
     aggregateQuery = [...aggregateQuery, sortquery];
   }
+
+  aggregateQuery = [...aggregateQuery, ...this.aggregatePipelineGenerator()];
   return ProductItem.aggregate(aggregateQuery).skip(Number(payload.skip)).limit(Number(payload.limit)).exec();
 }
 
@@ -515,31 +558,32 @@ exports.getProductItemsByShopAndCategory = async (params) => {
   } else {
     query.push({ '$addFields': { 'isLiked': false } });
   }
+  query.push(...this.aggregatePipelineGenerator());
   return ProductItem.aggregate(query).skip(Number(skip)).limit(Number(limit)).exec();
 }
 
 exports.rateProduct = async (payload) => {
-  const { productItemId, userId, star } = payload;
+  const { productItemId, userId, star,review } = payload;
   let rating = {};
   switch (star) {
     case 1: {
-      rating['1'] = { userId: userId };
+      rating['1'] = { userId: userId ,review:review };
       break;
     }
     case 2: {
-      rating['2'] = { userId: userId };
+      rating['2'] =  { userId: userId ,review:review };
       break;
     }
     case 3: {
-      rating['3'] = { userId: userId };
+      rating['3'] =  { userId: userId ,review:review };
       break;
     }
     case 4: {
-      rating['4'] = { userId: userId };
+      rating['4'] =  { userId: userId ,review:review };
       break;
     }
     case 5: {
-      rating['5'] = { userId: userId };
+      rating['5'] =  { userId: userId ,review:review };
       break;
     }
     default: {
@@ -596,6 +640,7 @@ exports.getProductItemsByShop = async (params) => {
       sort['name'] = 1;
       break;
   }
+  
   return Category.aggregate(
     [
       {
@@ -657,6 +702,7 @@ exports.getProductItemsByShop = async (params) => {
                 'wishlist': 0
               }
             },
+            ...this.aggregatePipelineGenerator(),
             {
               '$sort': sort
             },
@@ -693,4 +739,64 @@ exports.getProductItemsByShop = async (params) => {
       }
     ]
   ).exec();
+}
+
+const getSpecification = (row) => {
+  const removeFixedColumn = ['ProductName', 'ProductItemName', 'Category', 'Brand', 'Size', 'Color', 'Quantity', 'Mrp', 'SellerPrice', 'CostPrice', 'Shop', 'Vendor'];
+  //remove empty specification and default values
+  Object.keys(row).forEach(element => {
+    if (row[element] === '' || removeFixedColumn.indexOf(element) !== -1) {
+      delete row[element];
+    }
+  });
+  return row;
+}
+/**
+ * 
+ * @returns size lookup
+ */
+exports.aggregatePipelineGenerator = () => {
+  return [
+    {
+      '$lookup': {
+        'from': 'sizeunitvalues',
+        'let': { 'size': '$size' },
+        'pipeline': [
+          {
+            '$match': { '$expr': { '$eq': ['$_id', '$$size'] } }
+          },
+          {
+            '$lookup': {
+              'from': 'sizeunits',
+              'let': { 'unitId': '$unitId' },
+              'pipeline': [
+                {
+                  '$match': { '$expr': { '$eq': ['$_id', '$$unitId'] } }
+                }
+              ],
+              'as': 'SIZEUNIT'
+            }
+          },
+          {
+            '$unwind': "$SIZEUNIT"
+          }
+        ],
+        'as': 'SIZEVALUE'
+      }
+    },
+    {
+      '$unwind': "$SIZEVALUE"
+    },
+    {
+      '$addFields': {
+        'unitSize': '$SIZEVALUE.unitValue',
+        'unitValue': "$SIZEVALUE.SIZEUNIT.unit"
+      }
+    },
+    {
+      '$project': {
+        'SIZEVALUE': 0
+      }
+    }
+  ]
 }

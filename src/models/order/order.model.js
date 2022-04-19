@@ -1,36 +1,46 @@
 const mongoose = require("mongoose");
-const { v1: uuidV4 } = require("uuid");
-
-const orderSchema = new mongoose.Schema({
-    orderNumber: {
-        type: String,
-        default: uuidV4()
-    },
-    orderedAt: {
-        type: Date,
-        default: Date.now
-    },
-    orderTotal: {
-        type: Number
-    },
-    paymentMethod: {
-        type: String,
-        required: true
-    },
+const common = require("../../../lib/common");
+const orderSchema = new mongoose.Schema(
+  {
     shippingAddress: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+      required: true,
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    shopId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Shop",
+      required: true,
+    },
+    deliveryStatus: {
+      type: String,
+      enum: common.deliveryStatus
     },
     orderStatus: {
-        type: String,
-        enum: ['pending', 'in progress', 'completed', 'canceled', 'rejected']
-    }
-}, { versionKey: false });
+      type: String,
+      enum: common.orderStatus,
+      required: true,
+    },
+    paymentMode: {
+      type: String,
+      enum: common.paymentMode,
+      required: true,
+    },
+    transactionId: {
+      type: String
+    },
+    orderedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { versionKey: false }
+);
 
-const Order = mongoose.model('Order', orderSchema);
-
+const Order = mongoose.model("Order", orderSchema);
 module.exports = Order;

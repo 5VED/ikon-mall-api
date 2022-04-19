@@ -10,7 +10,8 @@ const productItemSchema = mongoose.Schema({
     required: true,
   },
   size: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'sizeunitvalues',
     required: true,
   },
   images: [
@@ -41,6 +42,10 @@ const productItemSchema = mongoose.Schema({
   quantity: {
     type: Number,
     default: 0,
+  },
+  specification: {
+    type: Object,
+    default: {}
   },
   brand: {
     type: mongoose.Schema.Types.ObjectId,

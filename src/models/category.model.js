@@ -1,3 +1,4 @@
+const { string } = require('joi');
 const mongoose = require('mongoose');
 
 const categorySchema = mongoose.Schema({
@@ -7,6 +8,9 @@ const categorySchema = mongoose.Schema({
     },
     description: {
         type: String
+    },
+    image:{
+       type:String
     },
     richDescription: {
         type: String,

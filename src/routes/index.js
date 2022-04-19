@@ -1,4 +1,5 @@
 const route = {};
+
 route.productItem = require("./product-item/product-item.route");
 route.shop = require("./shops/shop.route");
 route.vendor = require("./vendor/vendor.route");
@@ -8,5 +9,7 @@ route.brand = require("./brands/brands.route");
 route.wishlist = require("./user/wishlist.route");
 route.user = require("./user/user.route");
 route.order = require("./orders/orders.route");
+route.faq = require("./faq/faq.route");
+route.sizeUnit = require('./sizeUnit.route')
 
 module.exports = route;

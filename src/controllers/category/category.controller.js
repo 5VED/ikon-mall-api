@@ -2,6 +2,7 @@ const categoryHelper = require('../../helper/category.helper');
 const statusCodes = require("http-status-codes").StatusCodes;
 const logger = require("../../../lib/logger");
 
+
 exports.getAllCategory = async (req, res) => {
     try {
         const result = await categoryHelper.getAllCategory(req.query);
