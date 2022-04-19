@@ -18,8 +18,28 @@ exports.addShop = async (payload) => {
     shopImage: req.files.shopImage[0].path,
     shopLogo: req.files.shopLogo[0].path,
   });
-
   return shop.save();
+};
+
+exports.editShop = async (shopId, shop) => {
+
+  return Shop.updateOne(
+    { _id: ObjectId(shopId) },
+    {
+      $set: {
+        shopName: shop.shopName,
+        desc: shop.desc, 
+        categoryId: shop.categosryId,
+        rating: shop.rating,
+        reviews: shop.reviews,
+        isPrimeShop: shop.isPrimeShop,
+        timings: shop.timings,
+        vendorId: shop.vendorId,
+        shopImage: shop.shopImage,
+        shopLogo: shop.shopLogo,
+      },
+    }
+  ).exec();
 };
 
 exports.getShop = async (params) => {
@@ -417,18 +437,6 @@ exports.getShopRatingsByShopId = async (shopId) => {
     },
   ];
   return ShopRating.aggregate(query).limit(1).exec();
-};
-
-exports.editShop = async (shopId, shop) => {
-  return Shop.updateOne(
-    { _id: ObjectId(shopId) },
-    {
-      $set: {
-        shopName: shop.shopName,
-        desc: shop.desc,
-      },
-    }
-  ).exec();
 };
 
 exports.deleteShop = async (shopId) => {

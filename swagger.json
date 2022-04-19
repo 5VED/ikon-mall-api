@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "ikon-app.herokuapp.com/api",
+    "host": "locahost:5000/api",
     "basePath": "/",
     "tags": [
         {

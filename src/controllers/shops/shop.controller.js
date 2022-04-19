@@ -27,7 +27,7 @@ exports.AddShop = async (req, res) => {
   try {
     const payload = req.body;
     const result = await shopHelper.addShop(payload);
-     logger.info("Shop added successfully");
+    logger.info("Shop added successfully");
     return res
       .status(StatusCodes.OK)
       .send({ data: result, message: "Shop added successfully" });
@@ -74,9 +74,11 @@ exports.GetShopRatingsByShopId = async (req, res) => {
 
 exports.EditShop = async (req, res) => {
   try {
-    const shop = req.body.shop;
+    const shop = req.body;
+    console.log("in try block==>",shop);
     const shopId = req.params.shopId;
     const result = await shopHelper.editShop(shopId, shop);
+
     if (!result.matchedCount) {
       logger.warn("shop not found");
       return res.status(StatusCodes.NOT_FOUND).json({
